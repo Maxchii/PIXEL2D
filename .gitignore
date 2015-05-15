@@ -1,0 +1,13 @@
+*.ilk
+*.pdb
+*.obj
+*.log
+*.idb
+*.tlog
+*.tlog/
+*.lastbuildstate
+*.suo
+*.sdf
+*.user
+*.opensdf
+*.vspx
