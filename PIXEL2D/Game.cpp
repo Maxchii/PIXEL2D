@@ -9,7 +9,7 @@ void Game::Init()
 	audioClip = new audio::AudioClip("Assets/Witching Hour.mp3", true);
 	//audioClip->Play();
 
-	texture = new graphics::Texture("Assets/testCat.png");
+	texture = new graphics::Texture("Assets/wall.png");
 	shader = new graphics::Shader("Assets/basic.vert", "Assets/basic.frag");
 
 
@@ -17,33 +17,27 @@ void Game::Init()
 	layer = new graphics::Layer(new graphics::SpriteBatch(), shader, math::Matrix4x4::Ortho(0, 1280, 720, 0, -1.0f, 1.0f));
 	layer->Add(new Label("Assets/Nunito-Bold.ttf", "PIXEL 2D", math::Vector4(1.0f, .62f, 0.0f, 1), 64));
 
-	/*Float32 textureW = 32.0f;
-	Float32 textureH = 32.0f;
-
-	for (int y = 0; y < window->Height() / textureH; y++)
-	{
-		for (int x = 0; x < window->Width() / textureW; x++)
-		{
-			Drawable* sprite = new Drawable();
-
-		}
-	}*/
+	
 
 	drawable = new graphics::Drawable(*texture, math::Vector4::One());
 	layer->Add(drawable);
 
-	
-	
+	manager = new EntityManager();
+
+	auto& ent(manager->addEntity());
+	ent.AddComponent<Component>();
 
 }
 
 void Game::Update(float deltaTime)
 {
+	manager->Update(deltaTime);
 }
 
 void Game::Render()
 {
 	layer->Draw();
+	manager->Draw();
 	
 }
 

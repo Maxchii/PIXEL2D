@@ -37,6 +37,9 @@
     <ClInclude Include="Ext\freetype-gl\vector.h" />
     <ClInclude Include="Graphics\Font.h" />
     <ClInclude Include="Graphics\Label.h" />
+    <ClInclude Include="Core\Component.h" />
+    <ClInclude Include="Core\Entity.h" />
+    <ClInclude Include="Core\EntityManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -68,5 +71,7 @@
     <ClCompile Include="Ext\freetype-gl\vector.c" />
     <ClCompile Include="Graphics\Font.cpp" />
     <ClCompile Include="Graphics\Label.cpp" />
+    <ClCompile Include="Core\Entity.cpp" />
+    <ClCompile Include="Core\EntityManager.cpp" />
   </ItemGroup>
 </Project>

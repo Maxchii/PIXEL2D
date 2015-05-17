@@ -8,6 +8,9 @@
 #include "Graphics/Layer.h"
 #include "Graphics/Label.h"
 #include "Graphics/Font.h"
+#include "Core/EntityManager.h"
+#include "Core/Entity.h"
+#include "Core/Component.h"
 
 using namespace PIXL;
 using namespace graphics;
@@ -32,4 +35,5 @@ private:
 	graphics::Layer* layer;
 	graphics::Label* label;
 	graphics::Font* font;
+	EntityManager* manager;
 };
