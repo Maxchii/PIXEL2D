@@ -52,7 +52,7 @@ namespace PIXL { namespace math {
 
 		return Matrix4x4(mat);
 	}
-	Matrix4x4 Matrix4x4::Ortho(const Float32& left, const Float32& right, const Float32& top, const Float32& bottom, const Float32& far, const Float32& near)
+	Matrix4x4 Matrix4x4::Ortho(const Float32& left, const Float32& right, const Float32& bottom, const Float32& top, const Float32& far, const Float32& near)
 	{
 		return Matrix4x4(glm::ortho(left, right, bottom, top, near, far));
 	}
@@ -135,7 +135,7 @@ namespace PIXL { namespace math {
 	{
 		Matrix4x4 mat = Matrix4x4::Identity();
 		mat.Scale(scale);
-		mat *= rotation.GetRotationMatrix();
+		mat*= rotation.GetRotationMatrix();
 		mat.Translate(position);
 		return mat;
 	}
@@ -193,6 +193,15 @@ namespace PIXL { namespace math {
 		mat[2] = (*this)[2];
 		mat[3] = (*this)[3];
 		return mat;
+	}
+
+	Vector3 operator*(const Matrix4x4& left, const Vector3& right)
+	{
+		//This is fucking stupid, optimize if ever needed
+		Vector4 tmp = Vector4(right.x, right.y, right.z, 0);
+		Vector4 result = left.Raw() * tmp.Raw();
+		return result.xyz;
+
 	}
 
 } }

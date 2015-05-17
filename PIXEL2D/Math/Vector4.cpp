@@ -21,7 +21,7 @@ namespace PIXL{ namespace math {
 	PIXL::math::Vector4 Vector4::ClampMagnitude(const Vector4& vec, float maxLength)
 	{
 		Float32 magnitude = glm::clamp(vec.GetMagnitude(), -maxLength, maxLength);
-		return vec.Normalized() * magnitude;
+		return vec.Normalized()* magnitude;
 	}
 	PIXL::Float32 Vector4::Distance(const Vector4& from, const Vector4& to)
 	{
@@ -64,25 +64,25 @@ namespace PIXL{ namespace math {
 
 	void Vector4::Scale(const Vector4& scale)
 	{
-		x = scale.x * x;
-		y = scale.y * y;
-		z = scale.z * z;
-		w = scale.w * w;
+		x = scale.x* x;
+		y = scale.y* y;
+		z = scale.z* z;
+		w = scale.w* w;
 	}
 	void Vector4::Scale(const Float32& x, const Float32& y, const Float32& z, const Float32& w)
 	{
-		this->x = x * x;
-		this->y = y * y;
-		this->z = z * z;
-		this->w = w * w;
+		this->x = x* x;
+		this->y = y* y;
+		this->z = z* z;
+		this->w = w* w;
 	}
 	Float32 Vector4::GetMagnitude() const
 	{
-		return glm::sqrt(x * x + y * y + z * z + w * w);
+		return glm::sqrt(x* x + y* y + z* z + w* w);
 	}
 	Float32 Vector4::GetSqrMagnitude() const
 	{
-		return x * x + y * y + z * z + w * w;
+		return x* x + y* y + z* z + w* w;
 	}
 	Vector4 Vector4::Normalized() const
 	{

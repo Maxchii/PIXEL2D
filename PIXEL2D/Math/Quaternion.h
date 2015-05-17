@@ -20,7 +20,6 @@ namespace PIXL {namespace math {
 		static Quaternion LookRotation(const Vector3& lookDirection, const Vector3& desiredUp);
 		static Quaternion Slerp(const Quaternion& from, const Quaternion& to, const Float32& time);
 		static Quaternion Identity();
-
 		static Quaternion RotationBetween(Vector3 start, Vector3 end);
 
 

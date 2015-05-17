@@ -1,6 +1,7 @@
 #pragma once
 #include "..//Core/ValueTypes.h"
 #include <iostream>
+#define GLM_SWIZZLE 
 #include <glm/glm.hpp>
 
 namespace PIXL { namespace math{

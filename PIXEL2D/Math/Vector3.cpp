@@ -43,7 +43,7 @@ namespace PIXL { namespace math {
 	{
 		float magnitude = glm::clamp(vec.GetMagnitude(), -maxLength, maxLength);
 		Vector3 normalizedVector =vec.Normalized();
-		return normalizedVector * magnitude;
+		return normalizedVector* magnitude;
 	}
 	float Vector3::Distance(const Vector3& from, const Vector3& to)
 	{
@@ -90,15 +90,15 @@ namespace PIXL { namespace math {
 
 	void Vector3::Scale(const Vector3& scale)
 	{
-		x = scale.x * x;
-		y = scale.y * y;
-		z = scale.z * z;
+		x = scale.x* x;
+		y = scale.y* y;
+		z = scale.z* z;
 	}
 	void Vector3::Scale(const float& x, const float& y, const float& z)
 	{
-		this->x = x * x;
-		this->y = y * y;
-		this->z = z * z;
+		this->x = x* x;
+		this->y = y* y;
+		this->z = z* z;
 	}
 	float Vector3::GetMagnitude() const
 	{
@@ -106,7 +106,7 @@ namespace PIXL { namespace math {
 	}
 	float Vector3::GetSqrMagnitude() const
 	{
-		return x * x + y * y + z * z;
+		return x* x + y* y + z* z;
 	}
 	Vector3 Vector3::Normalized() const
 	{

@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClInclude Include="Core\ValueTypes.h" />
     <ClInclude Include="Graphics\Window.h" />
-    <ClInclude Include="Core\Debug.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
@@ -13,15 +12,61 @@
     <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="Utilities\StringExtensions.h" />
     <ClInclude Include="Utilities\Timer.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Core\PIXL2D.h" />
+    <ClInclude Include="Core\Time.h" />
+    <ClInclude Include="Debugging\Debug.h" />
+    <ClInclude Include="Input\KeyboardInput.h" />
+    <ClInclude Include="Input\ContollerInput.h" />
+    <ClInclude Include="Audio\AudioClip.h" />
+    <ClInclude Include="Audio\Audio.h" />
+    <ClInclude Include="Graphics\SpriteBatch.h" />
+    <ClInclude Include="Graphics\IndexBuffer.h" />
+    <ClInclude Include="Graphics\Drawable.h" />
+    <ClInclude Include="Graphics\Texture.h" />
+    <ClInclude Include="Graphics\Renderer.h" />
+    <ClInclude Include="Graphics\Shader.h" />
+    <ClInclude Include="Utilities\FileUtilities.h" />
+    <ClInclude Include="Graphics\Layer.h" />
+    <ClInclude Include="Ext\freetype-gl\freetype-gl.h" />
+    <ClInclude Include="Ext\freetype-gl\opengl.h" />
+    <ClInclude Include="Ext\freetype-gl\platform.h" />
+    <ClInclude Include="Ext\freetype-gl\texture-atlas.h" />
+    <ClInclude Include="Ext\freetype-gl\texture-font.h" />
+    <ClInclude Include="Ext\freetype-gl\vec234.h" />
+    <ClInclude Include="Ext\freetype-gl\vector.h" />
+    <ClInclude Include="Graphics\Font.h" />
+    <ClInclude Include="Graphics\Label.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Core\Debug.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
     <ClCompile Include="Math\Quaternion.cpp" />
     <ClCompile Include="Utilities\StringExtensions.cpp" />
+    <ClCompile Include="Graphics\Window.cpp" />
+    <ClCompile Include="Core\PIXL2D.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Core\Time.cpp" />
+    <ClCompile Include="Debugging\Debug.cpp" />
+    <ClCompile Include="Input\KeyboardInput.cpp" />
+    <ClCompile Include="Input\ControllerInput.cpp" />
+    <ClCompile Include="Audio\AudioClip.cpp" />
+    <ClCompile Include="Audio\Audio.cpp" />
+    <ClCompile Include="Graphics\SpriteBatch.cpp" />
+    <ClCompile Include="Graphics\IndexBuffer.cpp" />
+    <ClCompile Include="Graphics\Drawable.cpp" />
+    <ClCompile Include="Graphics\Texture.cpp" />
+    <ClCompile Include="Graphics\Renderer.cpp" />
+    <ClCompile Include="Graphics\Shader.cpp" />
+    <ClCompile Include="Graphics\Layer.cpp" />
+    <ClCompile Include="Ext\freetype-gl\platform.c" />
+    <ClCompile Include="Ext\freetype-gl\texture-atlas.c" />
+    <ClCompile Include="Ext\freetype-gl\texture-font.c" />
+    <ClCompile Include="Ext\freetype-gl\vector.c" />
+    <ClCompile Include="Graphics\Font.cpp" />
+    <ClCompile Include="Graphics\Label.cpp" />
   </ItemGroup>
 </Project>

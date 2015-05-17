@@ -3,7 +3,7 @@
 
 namespace PIXL { namespace utilities {
 
-	class Timer
+	class Timer final
 	{
 	public:
 		Timer(){ reset(); }

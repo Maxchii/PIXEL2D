@@ -16,7 +16,7 @@ namespace PIXL { namespace math{
 		static Matrix4x4 Translate(const Matrix4x4& matrix, const Vector3& translation);
 		static Matrix4x4 Rotate(const Matrix4x4& matrix, const Float32& rotation, const Vector3& axis);
 		static Matrix4x4 Rotate(const Matrix4x4& matrix, const Vector3& rotation);
-		static Matrix4x4 Ortho(const Float32& left, const Float32& right, const Float32& top, const Float32& bottom, const Float32& far, const Float32& near);
+		static Matrix4x4 Ortho(const Float32& left, const Float32& right, const Float32& bottom, const Float32& top, const Float32& far, const Float32& near);
 		static Matrix4x4 Perspective(const Float32& fov, const Float32& aspectRatio, const Float32& near, const Float32& far);
 		static Matrix4x4 LookAt(const Vector3& cameraPosition, const Vector3& direction, const Vector3& upDirection);
 		static Matrix4x4 LookAt(const Vector3& cameraPosition, const Vector3& direction);
@@ -35,19 +35,21 @@ namespace PIXL { namespace math{
 
 		glm::mat4 Raw() const;
 
+		friend Vector3 operator*(const Matrix4x4& left, const Vector3& right);
+
 		Matrix4x4 operator*=(const Matrix4x4& matrix)
 		{
 			glm::mat4 a = Raw();
 			glm::mat4 b = matrix.Raw();
-			*this = a * b;
-			return *this;
+			*this = a* b;
+			return*this;
 		}
 
-		Matrix4x4 operator *(const Matrix4x4& matrix)
+		Matrix4x4 operator*(const Matrix4x4& matrix)
 		{
 			glm::mat4 a = Raw();
 			glm::mat4 b = matrix.Raw();
-			return a * b;
+			return a* b;
 		}
 	};
 

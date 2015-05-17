@@ -17,8 +17,7 @@ namespace PIXL { namespace math {
 
 	float Quaternion::Angle(const Quaternion& a, const Quaternion& b)
 	{
-		//TODO: Implement to return an angle between two rotations
-		return 0.0f;
+		return glm::angle(a.Raw(), b.Raw());
 	}
 	float Quaternion::Dot(const Quaternion& a, const Quaternion& b)
 	{
@@ -45,9 +44,9 @@ namespace PIXL { namespace math {
 		glm::vec3 right = glm::cross(lookDirection, desiredUp);
 		desiredUp = glm::cross(right, lookDirection);
 
-		glm::vec3 newUp = quat1 * Vector3::Up().Raw();
+		glm::vec3 newUp = quat1* Vector3::Up().Raw();
 		glm::quat quat2 = RotationBetween(newUp, desiredUp);
-		return quat2 * quat1;
+		return quat2* quat1;
 	}
 
 	Quaternion Quaternion::LookRotation(const Vector3& lookDirection, const Vector3& desiredUp)
@@ -58,9 +57,9 @@ namespace PIXL { namespace math {
 		glm::vec3 right = glm::cross(lookDirection, dUp);
 		dUp = glm::cross(right, lookDirection);
 
-		glm::vec3 newUp = quat1 * Vector3::Up().Raw();
+		glm::vec3 newUp = quat1* Vector3::Up().Raw();
 		glm::quat quat2 = RotationBetween(newUp, dUp);
-		return quat2 * quat1;
+		return quat2* quat1;
 	}
 	Quaternion Quaternion::Slerp(const Quaternion& from, const Quaternion& to, const Float32& time)
 	{
@@ -92,10 +91,10 @@ namespace PIXL { namespace math {
 		}
 		rotationAxis = glm::cross(s, e);
 
-		float sq = glm::sqrt((1 + cosTheta) * 2.0f);
+		float sq = glm::sqrt((1 + cosTheta)* 2.0f);
 		float invs = 1 / sq;
 
-		return glm::quat(sq * 0.5f, rotationAxis.x * invs, rotationAxis.y * invs, rotationAxis.z * invs);
+		return glm::quat(sq* 0.5f, rotationAxis.x* invs, rotationAxis.y* invs, rotationAxis.z* invs);
 	}
 
 	Vector3 Quaternion::GetEulerAngles() const
@@ -109,7 +108,7 @@ namespace PIXL { namespace math {
 	}
 	Vector3 Quaternion::GetDirection() const
 	{
-		return (*this) * Vector3::Forward();
+		return (*this)* Vector3::Forward();
 	}
 	glm::quat Quaternion::Raw() const
 	{

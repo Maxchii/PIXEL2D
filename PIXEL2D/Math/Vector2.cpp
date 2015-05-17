@@ -25,7 +25,7 @@ namespace PIXL{ namespace math {
 	PIXL::math::Vector2 Vector2::ClampMagnitude(const Vector2& vec, float maxLength)
 	{
 		float magnitude = glm::clamp(vec.GetMagnitude(), -maxLength, maxLength);
-		return vec.Normalized() * magnitude;
+		return vec.Normalized()* magnitude;
 	}
 	float Vector2::Distance(const Vector2& from, const Vector2& to)
 	{
@@ -60,21 +60,21 @@ namespace PIXL{ namespace math {
 
 	void Vector2::Scale(const Vector2& scale)
 	{
-		x = scale.x * x;
-		y = scale.y * y;
+		x = scale.x* x;
+		y = scale.y* y;
 	}
 	void Vector2::Scale(const float& aX, const float& aY)
 	{
-		x = aX * x;
-		y = aY * y;
+		x = aX* x;
+		y = aY* y;
 	}
 	float Vector2::GetMagnitude() const
 	{
-		return glm::sqrt(x * x + y * y);
+		return glm::sqrt(x* x + y* y);
 	}
 	float Vector2::GetSqrMagnitude() const
 	{
-		return x * x + y * y;
+		return x* x + y* y;
 	}
 	Vector2 Vector2::Normalized() const
 	{
