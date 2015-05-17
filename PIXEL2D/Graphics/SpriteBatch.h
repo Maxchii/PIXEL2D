@@ -33,7 +33,7 @@ namespace PIXL { namespace graphics {
 		~SpriteBatch();
 
 		void Begin() override;
-		void Submit( Drawable* const drawable);
+		void Submit(Drawable*const  drawable);
 		void SubmitLabel(const string& text, const math::Vector3& position, const Font& font, unsigned int color) override;
 		void End() override;
 		void Flush() override;

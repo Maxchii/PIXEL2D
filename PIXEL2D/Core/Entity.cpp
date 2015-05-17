@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "EntityManager.h"
+#include "Transform.h"
 
 namespace PIXL
 {
@@ -8,18 +9,20 @@ namespace PIXL
 
 	void Entity::Update(Float32 deltaTime)
 	{
-		for (int i = 0; i < m_components.size() ; i++)
+		for (std::size_t i = 0; i < m_components.size() ; i++)
 		{
 			m_components[i]->Update(deltaTime);
 		}
 	}
 
-	void Entity::Draw()
+	void Entity::Draw(graphics::Renderer* renderer)
 	{
-		for (int i = 0; i < m_components.size(); i++)
+		renderer->Push(GetComponent<Transform>().transformationMatrix());
+		for (std::size_t i = 0; i < m_components.size(); i++)
 		{
-			m_components[i]->Draw();
+			m_components[i]->Draw(renderer);
 		}
+		renderer->Pop();
 	}
 
 	bool Entity::IsAlive() const

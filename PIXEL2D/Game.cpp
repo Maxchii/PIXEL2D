@@ -1,44 +1,36 @@
 #include "Game.h"
 #include "Utilities/StringExtensions.h"
+#include "Core/Transform.h"
 
 void Game::Init()
 {
 	window = CreateWindow("Game", 1280, 720, NULL);
 	window->EnableVsync(false);
 
-	audioClip = new audio::AudioClip("Assets/Witching Hour.mp3", true);
-	//audioClip->Play();
 
 	texture = new graphics::Texture("Assets/wall.png");
 	shader = new graphics::Shader("Assets/basic.vert", "Assets/basic.frag");
 
-
-
-	layer = new graphics::Layer(new graphics::SpriteBatch(), shader, math::Matrix4x4::Ortho(0, 1280, 720, 0, -1.0f, 1.0f));
-	layer->Add(new Label("Assets/Nunito-Bold.ttf", "PIXEL 2D", math::Vector4(1.0f, .62f, 0.0f, 1), 64));
-
-	
-
-	drawable = new graphics::Drawable(*texture, math::Vector4::One());
-	layer->Add(drawable);
-
-	manager = new EntityManager();
+	manager = new EntityManager(new graphics::SpriteBatch(), shader, math::Matrix4x4::Ortho(0, 640, 360, 0, -1.0f, 1.0f));
 
 	auto& ent(manager->addEntity());
-	ent.AddComponent<Component>();
+	ent.AddComponent<Drawable>(*texture, math::Vector4::One());
+	Transform& t = ent.AddComponent<Transform>();
+	t.SetPosition(math::Vector2(1500,500.0f));
+	//t.Rotate(0.5f);
+	//t.Scale(math::Vector2(1, 2));
 
 }
 
 void Game::Update(float deltaTime)
 {
+	manager->Refresh();
 	manager->Update(deltaTime);
 }
 
 void Game::Render()
 {
-	layer->Draw();
 	manager->Draw();
-	
 }
 
 Game::~Game()

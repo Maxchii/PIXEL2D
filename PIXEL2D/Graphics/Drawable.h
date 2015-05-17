@@ -1,5 +1,6 @@
 #pragma once
 #include "..//Math/Math.h"
+#include "..//Core/Component.h"
 #include <array>
 #include <GL/glew.h>
 #include "Texture.h"
@@ -7,7 +8,7 @@
 
 namespace PIXL {namespace graphics {
 
-	class Drawable
+	class Drawable : public Component
 	{
 	public:
 		Drawable();
@@ -15,7 +16,7 @@ namespace PIXL {namespace graphics {
 		Drawable(Texture& texture, const math::Vector4& color);
 		virtual ~Drawable(){}
 
-		virtual void Draw(Renderer* renderer);
+		void Draw(Renderer* renderer) override;
 
 		const math::Vector2& GetSize() const;
 		const unsigned int GetColor() const;

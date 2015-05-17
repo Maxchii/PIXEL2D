@@ -1,6 +1,7 @@
 #pragma once
 #include "ValueTypes.h"
 #include "Component.h"
+#include "..//Graphics/Renderer.h"
 
 #include <vector>
 #include <memory>
@@ -26,15 +27,15 @@ namespace PIXL{
 		return typeID;
 	}
 
-	class EntityManager;
-	class Component;
+	struct EntityManager;
+	struct Component;
 	class Entity
 	{
 	public:
 		Entity(EntityManager& entManager);
 
 		void Update(Float32 deltaTime);
-		void Draw();
+		void Draw(graphics::Renderer* renderer);
 
 		bool IsAlive() const;
 		void Destroy();

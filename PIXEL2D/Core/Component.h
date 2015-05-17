@@ -1,17 +1,18 @@
 #pragma once
 #include "ValueTypes.h"
+#include "..//Graphics/Renderer.h"
 
 namespace PIXL
 {
 	class Entity;
-	class Component
+	//namespace PIXL{ namespace graphics{ class Renderer; } }
+	struct Component
 	{
-	public:
 		Entity* entity;
 
 		virtual void Init(){}
 		virtual void Update(Float32 deltaTime){}
-		virtual void Draw(){}
+		virtual void Draw(graphics::Renderer* renderer){}
 
 		virtual ~Component(){}
 	};

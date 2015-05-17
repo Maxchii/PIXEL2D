@@ -40,6 +40,7 @@
     <ClInclude Include="Core\Component.h" />
     <ClInclude Include="Core\Entity.h" />
     <ClInclude Include="Core\EntityManager.h" />
+    <ClInclude Include="Core\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -73,5 +74,6 @@
     <ClCompile Include="Graphics\Label.cpp" />
     <ClCompile Include="Core\Entity.cpp" />
     <ClCompile Include="Core\EntityManager.cpp" />
+    <ClCompile Include="Core\Transform.cpp" />
   </ItemGroup>
 </Project>

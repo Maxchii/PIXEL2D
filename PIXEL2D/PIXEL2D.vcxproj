@@ -104,6 +104,7 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClInclude Include="Core\Component.h" />
     <ClInclude Include="Core\Entity.h" />
     <ClInclude Include="Core\EntityManager.h" />
+    <ClInclude Include="Core\Transform.h" />
     <ClInclude Include="Debugging\Debug.h" />
     <ClInclude Include="Core\Time.h" />
     <ClInclude Include="Ext\freetype-gl\freetype-gl.h" />
@@ -144,6 +145,7 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClCompile Include="Audio\AudioClip.cpp" />
     <ClCompile Include="Core\Entity.cpp" />
     <ClCompile Include="Core\EntityManager.cpp" />
+    <ClCompile Include="Core\Transform.cpp" />
     <ClCompile Include="Debugging\Debug.cpp" />
     <ClCompile Include="Core\Time.cpp" />
     <ClCompile Include="Ext\freetype-gl\platform.c" />

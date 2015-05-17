@@ -54,14 +54,14 @@ namespace PIXL { namespace graphics {
 		m_buffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	}
 
-	void SpriteBatch::Submit(Drawable* const drawbale)
+	void SpriteBatch::Submit(Drawable* const drawable)
 	{
-		const math::Vector2& size = drawbale->GetSize();
-		const unsigned int color = drawbale->GetColor();
-		const std::array<math::Vector2, 4>& uvs = drawbale->GetUvs();
-		const GLuint tid = drawbale->GetTextureID();
+		const math::Vector2& size = drawable->GetSize();
+		const unsigned int color = drawable->GetColor();
+		const std::array<math::Vector2, 4>& uvs = drawable->GetUvs();
+		const GLuint tid = drawable->GetTextureID();
 
-		math::Matrix4x4::Translate(*m_transformationBack, math::Vector3(-(size.x * 0.5f), -(size.y * 0.5f), 1.0f));
+		*m_transformationBack = math::Matrix4x4::Translate(*m_transformationBack, math::Vector3(-(size.x * 0.5f), -(size.y * 0.5f), 1.0f));
 
 		float ts = 0.0f;
 		if (tid > 0)
