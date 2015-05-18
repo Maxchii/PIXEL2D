@@ -23,9 +23,9 @@ namespace PIXL
 	{
 		//for (auto& e : entities) e->Update(deltaTime);
 
-		for (size_t i = 0; i < entities.size(); i++)
+		for (size_t i = 0; i < m_entities.size(); i++)
 		{
-			entities[i]->Update(deltaTime);
+			m_entities[i]->Update(deltaTime);
 		}
 	}
 
@@ -35,9 +35,9 @@ namespace PIXL
 
 		m_shader->Enable();
 		m_spriteBatch->Begin();
-		for (size_t i = 0; i < entities.size(); i++)
+		for (size_t i = 0; i < m_entities.size(); i++)
 		{
-			entities[i]->Draw(m_spriteBatch);
+			m_entities[i]->Draw(m_spriteBatch);
 		}
 		m_spriteBatch->End();
 		m_spriteBatch->Flush();
@@ -47,20 +47,21 @@ namespace PIXL
 	{
 		// During refresh, we need to remove dead entities and entities
 
-		entities.erase(
-			std::remove_if(std::begin(entities), std::end(entities),
+		m_entities.erase(
+			std::remove_if(std::begin(m_entities), std::end(m_entities),
 			[](const std::unique_ptr<Entity>& mEntity)
 		{
 			return !mEntity->IsAlive();
 		}),
-			std::end(entities));
+			std::end(m_entities));
 	}
 
-	Entity& EntityManager::addEntity()
+	Entity& EntityManager::AddEntity()
 	{
 		Entity* e(new Entity(*this));
 		std::unique_ptr<Entity> uPtr{ e };
-		entities.emplace_back(std::move(uPtr));
+		m_entities.emplace_back(std::move(uPtr));
+		e->Init();
 		return *e;
 	}
 

@@ -1,8 +1,7 @@
 #include "shader.h"
 #include "..//Debugging/Debug.h"
-#include <glm/gtc/type_ptr.hpp>
 #include <vector>
-
+#include <glm/gtc/type_ptr.hpp>
 
 namespace PIXL{
 	namespace graphics{

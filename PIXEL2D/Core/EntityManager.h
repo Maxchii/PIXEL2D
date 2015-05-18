@@ -21,11 +21,10 @@ namespace PIXL
 		void Draw();
 		void Refresh();
 
-		Entity& addEntity();
+		Entity& AddEntity();
 
 	private:
-		std::vector<std::unique_ptr<Entity>> entities;
-
+		std::vector<std::unique_ptr<Entity>> m_entities;
 		graphics::SpriteBatch* m_spriteBatch;
 		graphics::Shader* m_shader;
 		math::Matrix4x4 m_projectionMatrix;

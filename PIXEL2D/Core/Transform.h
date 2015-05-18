@@ -10,32 +10,28 @@ namespace PIXL
 	public:
 		Transform();
 
-		const void updateTransformations();
-
-		const math::Vector3& getPosition() const;
-		const float getRotation() const;
-		const math::Vector2& getScale()	const;
-		const math::Matrix4x4& transformationMatrix() const;
-		const math::Vector3& getUp() const;
-		const math::Vector3& getRight()	const;
+		const math::Vector3& GetPosition() const;
+		const float GetRotation() const;
+		const math::Vector2& GetScale()	const;
+		const math::Matrix4x4& GetLocalTransform() const;
+		const math::Matrix4x4& GetWorldTransform() const;
 
 		void SetPosition(const math::Vector2& newPosition);
 		void AddForce(const math::Vector2& newPosition);
-		void Rotate(float newRotation);
-		void Scale(const math::Vector2& newScale);
+		void SetRotation(float newRotation);
+		void SetScale(const math::Vector2& newScale);
 
 		void Init() override;
 		void Update(Float32 deltaTime) override;
+		bool IsDirty();
+
 	private:
 		bool m_needsUpdate;
-
-		math::Vector3 m_up;
-		math::Vector3 m_right;
-
 		math::Vector3 m_position;
 		float m_rotation;
 		math::Vector2 m_scale;
 
 		math::Matrix4x4 m_localMatrix;
+		math::Matrix4x4 m_worldMatrix;
 	};
 }

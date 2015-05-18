@@ -2,6 +2,7 @@
 #include "..//Core/ValueTypes.h"
 #include <iostream>
 #define GLM_SWIZZLE 
+#define GLM_FORCE_SSE2
 #include <glm/glm.hpp>
 
 namespace PIXL { namespace math{

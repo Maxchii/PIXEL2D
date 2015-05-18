@@ -74,6 +74,21 @@
     <Report>
       <Path>PIXEL2D150517(1).vspx</Path>
     </Report>
+    <Report>
+      <Path>PIXEL2D150518.vspx</Path>
+    </Report>
+    <Report>
+      <Path>PIXEL2D150518(1).vspx</Path>
+    </Report>
+    <Report>
+      <Path>PIXEL2D150518(2).vspx</Path>
+    </Report>
+    <Report>
+      <Path>PIXEL2D150518(3).vspx</Path>
+    </Report>
+    <Report>
+      <Path>PIXEL2D150518(4).vspx</Path>
+    </Report>
   </Reports>
   <Launches>
     <ProjBinary>

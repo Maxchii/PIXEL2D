@@ -10,7 +10,7 @@ namespace PIXL{ namespace graphics{
 
 	void Renderer::Push(const math::Matrix4x4& matrix)
 	{
-		m_transformationStack.push_back(m_transformationStack.back() * matrix);
+		m_transformationStack.push_back(/*m_transformationStack.back() * */matrix);
 		m_transformationBack = &m_transformationStack.back();
 	}
 

@@ -37,20 +37,9 @@ namespace PIXL { namespace math{
 
 		friend Vector3 operator*(const Matrix4x4& left, const Vector3& right);
 
-		Matrix4x4 operator*=(const Matrix4x4& matrix)
-		{
-			glm::mat4 a = Raw();
-			glm::mat4 b = matrix.Raw();
-			*this = a* b;
-			return*this;
-		}
+		Matrix4x4 operator*=(const Matrix4x4& matrix);
 
-		Matrix4x4 operator*(const Matrix4x4& matrix)
-		{
-			glm::mat4 a = Raw();
-			glm::mat4 b = matrix.Raw();
-			return a* b;
-		}
+		Matrix4x4 operator*(const Matrix4x4& matrix);
 	};
 
 } }

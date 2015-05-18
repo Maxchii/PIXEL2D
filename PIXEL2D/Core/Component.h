@@ -1,11 +1,10 @@
 #pragma once
 #include "ValueTypes.h"
 #include "..//Graphics/Renderer.h"
+#include "Entity.h"
 
 namespace PIXL
 {
-	class Entity;
-	//namespace PIXL{ namespace graphics{ class Renderer; } }
 	struct Component
 	{
 		Entity* entity;

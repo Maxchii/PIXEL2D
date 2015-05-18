@@ -34,6 +34,7 @@ namespace PIXL { namespace math {
 
 		void Set(Float32 x, Float32 y, Float32 z, Float32 w);
 		void Set(const Vector4& vec);
+
 		//Converts the data into raw 8 bit format. (12 bytes)
 		glm::vec4 Raw() const;
 

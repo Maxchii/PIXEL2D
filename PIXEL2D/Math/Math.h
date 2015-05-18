@@ -1,6 +1,4 @@
 #pragma once
-#define GLM_FORCE_RADIANS
-
 #include "MathTypes.h"
 #include "Vector2.h"
 #include "Vector3.h"

@@ -62,10 +62,6 @@ namespace PIXL { namespace math {
 	}
 	Matrix4x4 Matrix4x4::LookAt(const Vector3& cameraPosition, const Vector3& direction, const Vector3& upDirection)
 	{
-		//glm::mat4 mat = glm::lookAt(cameraPosition, aTargetPosition, upDirection);
-		//Matrix4x4 result = mat;
-
-
 		Vector3 f = direction.Normalized();
 		Vector3 s = Vector3::Cross(f, upDirection).Normalized();
 		Vector3 u = Vector3::Cross(s, f);
@@ -82,7 +78,7 @@ namespace PIXL { namespace math {
 		result[2][2] = -f.z;
 		result[3][0] = -Vector3::Dot(s, cameraPosition);
 		result[3][1] = -Vector3::Dot(u, cameraPosition);
-		result[3][2] = Vector3::Dot(f, cameraPosition);
+		result[3][2] =  Vector3::Dot(f, cameraPosition);
 		return result;
 
 		return result;
@@ -187,21 +183,28 @@ namespace PIXL { namespace math {
 
 	glm::mat4 Matrix4x4::Raw() const
 	{
-		glm::mat4 mat;
-		mat[0] = (*this)[0];
-		mat[1] = (*this)[1];
-		mat[2] = (*this)[2];
-		mat[3] = (*this)[3];
-		return mat;
+		return (glm::mat4)*this;
+	}
+
+	Matrix4x4 Matrix4x4::operator*(const Matrix4x4& matrix)
+	{
+		return  Raw() * matrix.Raw();
+	}
+
+	PIXL::math::Matrix4x4 Matrix4x4::operator*=(const Matrix4x4& matrix)
+	{ 
+		*this = Raw() * matrix.Raw();
+		return *this;
 	}
 
 	Vector3 operator*(const Matrix4x4& left, const Vector3& right)
 	{
-		//This is fucking stupid, optimize if ever needed
-		Vector4 tmp = Vector4(right.x, right.y, right.z, 0);
-		Vector4 result = left.Raw() * tmp.Raw();
-		return result.xyz;
+		Vector3 ret = Vector3(
+			left[0].x * right.x + left[1].x * right.y + left[2].x * right.z + left[3].x,
+			left[0].y * right.x + left[1].y * right.y + left[2].y * right.z + left[3].y,
+			left[0].z * right.x + left[1].z * right.y + left[2].z * right.z + left[3].z);
 
+		return ret;
 	}
 
 } }

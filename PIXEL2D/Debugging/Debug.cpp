@@ -8,6 +8,7 @@ namespace PIXL{ namespace debugging {
 
 	const int Debug::MAX_DEBUG_STRING_LENGTH = 2048;
 
+	
 	void Debug::Log(const char* message)
 	{
 		printf("[LOG]: %s\n", message);

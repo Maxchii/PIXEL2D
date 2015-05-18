@@ -1,6 +1,7 @@
 #pragma once
 #include "ValueTypes.h"
-#include "Component.h"
+
+
 #include "..//Graphics/Renderer.h"
 
 #include <vector>
@@ -29,11 +30,13 @@ namespace PIXL{
 
 	struct EntityManager;
 	struct Component;
+	class Transform;
 	class Entity
 	{
 	public:
 		Entity(EntityManager& entManager);
 
+		void Init();
 		void Update(Float32 deltaTime);
 		void Draw(graphics::Renderer* renderer);
 
@@ -68,12 +71,22 @@ namespace PIXL{
 			return *reinterpret_cast<T*>(ptr);
 		}
 
+
+		inline Transform& GetTransform() const { return *m_transform; }
+
+		void SetParent(Entity& entity);
+		inline Entity* GetParent() const { return m_parent; }
+		inline std::vector<Entity*>& childs() { return m_childs; }
+
 	private:
 		EntityManager& m_manager;
+		Transform* m_transform;
+		Entity* m_parent;
 		bool m_alive;
 		std::vector<std::unique_ptr<Component>> m_components;
 		std::array<Component*, 32> m_componentsArray;
 		std::bitset<32> m_componentBitSet;
+		std::vector<Entity*> m_childs;
 	};
 
 }

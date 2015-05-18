@@ -90,7 +90,6 @@ namespace PIXL { namespace graphics {
 			}
 		}
 
-		
 		m_buffer->vertex = *m_transformationBack * math::Vector3(0, size.y, 0);
 		m_buffer->uv = uvs[3];
 		m_buffer->tid = ts;
@@ -117,6 +116,7 @@ namespace PIXL { namespace graphics {
 
 		m_indexCount += 6;
 
+		
 		if (m_indexCount >= RENDERER_MAX_SPRITES * 6)
 		{
 			End();
