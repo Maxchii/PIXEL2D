@@ -50,12 +50,9 @@ namespace PIXL { namespace graphics{
 		SetUintColor(newColor);
 	}
 
-	void Drawable::SetUvs(math::Vector2 newUvs[])
+	void Drawable::SetUvs(const std::array<math::Vector2, 4>& newUvs)
 	{
-		m_uvs[0] = newUvs[0];
-		m_uvs[1] = newUvs[1];
-		m_uvs[2] = newUvs[2];
-		m_uvs[3] = newUvs[3];
+		m_uvs = newUvs;
 	}
 
 	const std::array<math::Vector2, 4>& Drawable::GetUvs()

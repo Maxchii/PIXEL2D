@@ -15,13 +15,14 @@ namespace PIXL{ namespace audio{
 
 	void AudioClip::Play()
 	{
-		if (!m_playing)
-		{
+		if (!m_playing){
 			Audio::AudioSystem().playSound(FMOD_CHANNEL_REUSE, m_sound, false, &m_channel);
+			m_playing = true;
+			m_paused = false;
 		}
 	}
 
-	void AudioClip::Loop(UInt32 amount /*= 0*/)
+	void AudioClip::Loop(UInt32 amount)
 	{
 		m_sound->setMode(FMOD_LOOP_NORMAL);
 		m_sound->setLoopCount(amount);
@@ -33,7 +34,7 @@ namespace PIXL{ namespace audio{
 		if (!m_playing)
 			return;
 
-		m_channel->setPaused(false);
+		m_channel->setPaused(true);
 		m_playing = false;
 		m_paused = true;
 	}
@@ -50,36 +51,26 @@ namespace PIXL{ namespace audio{
 
 	void AudioClip::Stop()
 	{
-		if (!m_looping)
+		if (m_looping)
 		{
 			m_sound->setMode(FMOD_LOOP_OFF);
 			m_looping = false;
 		}
-
 		m_playing = false;
 		m_paused = true;
 		m_channel->stop();
 	}
 
-	void AudioClip::SetVolume(Float32 volume)
+	void AudioClip::SetVolume(float volume)
 	{
 		if (volume < 0.0f)
-			volume = 0;
+			volume = 0.0f;
+
 		if (volume > 1.0f)
 			volume = 1.0f;
 
 		m_channel->setVolume(volume);
 		m_volume = volume;
-	}
-
-	const Float32 AudioClip::GetVolume() const
-	{
-		return m_volume;
-	}
-
-	const bool AudioClip::Playing() const
-	{
-		return m_paused;
 	}
 
 	void AudioClip::ErrorCheck(FMOD_RESULT result)

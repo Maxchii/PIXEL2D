@@ -7,7 +7,6 @@ namespace PIXL{ namespace graphics {
 	Window::Window(const std::string& windowHandle, int width, int height, UInt32 windowFlags /*= 0*/)
 		: m_windowHandle(windowHandle), m_width(width), m_height(height), m_windowFlags(windowFlags)
 	{
-
 		if (!Init()){
 			glfwTerminate();
 			debugging::Debug::LogError("Window.cpp", "Fatal Error! GLFW terminated!");
@@ -110,9 +109,6 @@ namespace PIXL{ namespace graphics {
 			debugging::Debug::LogError(nullptr, fullErrorMessage.c_str());
 			error = glGetError();
 		}
-
-		//input::Input::Update();
-
 		glfwSwapBuffers(m_window);
 		glfwPollEvents();
 	}

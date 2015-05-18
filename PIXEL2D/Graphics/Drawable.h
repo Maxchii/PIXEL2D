@@ -25,7 +25,7 @@ namespace PIXL {namespace graphics {
 
 		const void SetSize(const math::Vector2& newSize);
 		const void SetColor(const math::Vector4& newColor);
-		void SetUvs(math::Vector2 newUvs[]);
+		void SetUvs(const std::array<math::Vector2, 4>& newUvs);
 		void SetTexture(Texture& newTexture);
 
 	protected:

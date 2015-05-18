@@ -26,6 +26,9 @@ namespace PIXL
 		bool IsDirty();
 		void SetDirty();
 
+		math::Vector3 GetUp();
+		math::Vector3 GetRight();
+
 	private:
 		bool m_needsUpdate;
 		math::Vector3 m_position;
@@ -34,5 +37,8 @@ namespace PIXL
 
 		math::Matrix4x4 m_localMatrix;
 		math::Matrix4x4 m_worldMatrix;
+
+		math::Vector3 m_up;
+		math::Vector3 m_right;
 	};
 }

@@ -64,6 +64,17 @@ namespace PIXL
 		
 	}
 
+
+	math::Vector3 Transform::GetUp()
+	{
+		m_up;
+	}
+
+	math::Vector3 Transform::GetRight()
+	{
+		m_right;
+	}
+
 	void Transform::Update(Float32 deltaTime)
 	{
 		if (m_needsUpdate)
@@ -81,6 +92,8 @@ namespace PIXL
 				m_worldMatrix = entity->GetParent()->GetTransform().GetWorldTransform() * m_worldMatrix;
 			}
 			
+			m_right.Set(m_worldMatrix.elements[0], m_worldMatrix.elements[4], m_worldMatrix.elements[8]);
+			m_up.Set(m_worldMatrix.elements[1], m_worldMatrix.elements[5], m_worldMatrix.elements[9]);
 
 			std::vector<Entity*>& childs = entity->childs();
 			for (size_t i = 0; i < childs.size(); i++)
@@ -101,7 +114,5 @@ namespace PIXL
 	{
 		m_needsUpdate = true;
 	}
-
-	
 
 }

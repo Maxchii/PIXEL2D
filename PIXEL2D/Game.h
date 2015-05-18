@@ -37,4 +37,5 @@ private:
 	graphics::Font* font;
 	EntityManager* manager;
 	Entity* testEntity;
+
 };

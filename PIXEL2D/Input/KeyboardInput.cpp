@@ -169,6 +169,5 @@ namespace PIXL { namespace input {
 		win->m_scrollWheelX = xoffset;
 		win->m_scrollWheelY = yoffset;
 	}
-
 }
 }
