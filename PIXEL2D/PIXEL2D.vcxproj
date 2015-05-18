@@ -49,6 +49,7 @@
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\</IntDir>
     <IncludePath>$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\RapidJSON\Include;$(SolutionDir)Dependencies\Box2D\include;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\FMOD\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\FMOD\lib;$(SolutionDir)Dependencies\FreeType\lib;$(SolutionDir)Dependencies\FreeImage\lib;$(SolutionDir)Dependencies\GLFW\lib;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\Box2D\lib;$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName) Engine</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

@@ -67,12 +67,12 @@ namespace PIXL
 
 	math::Vector3 Transform::GetUp()
 	{
-		m_up;
+		return m_up;
 	}
 
 	math::Vector3 Transform::GetRight()
 	{
-		m_right;
+		return m_right;
 	}
 
 	void Transform::Update(Float32 deltaTime)
