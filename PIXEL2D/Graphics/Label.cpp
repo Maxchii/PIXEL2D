@@ -1,4 +1,5 @@
 #include "Label.h"
+#include "..//Core/Transform.h"
 
 namespace PIXL{ namespace graphics{
 
@@ -17,7 +18,7 @@ namespace PIXL{ namespace graphics{
 
 	void Label::Draw(Renderer* renderer)
 	{
-		renderer->SubmitLabel(m_text, math::Vector3(100, 100, 0), *m_font, 0xffffff);
+		renderer->SubmitLabel(m_text, entity->GetTransform().GetPosition(), *m_font, m_color);
 	}
 
 	void Label::SetText(const string& text)

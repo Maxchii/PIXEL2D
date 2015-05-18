@@ -123,7 +123,7 @@ namespace PIXL{
 
 		void Shader::SetUniformMat4(const GLchar* name, const math::Matrix4x4& matrix)
 		{
-			glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(matrix.Raw()));
+			glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, matrix.elements);
 		}
 
 		void Shader::Enable() const

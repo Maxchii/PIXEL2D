@@ -30,7 +30,7 @@ namespace PIXL{
 
 	struct EntityManager;
 	struct Component;
-	class Transform;
+	struct Transform;
 	class Entity
 	{
 	public:

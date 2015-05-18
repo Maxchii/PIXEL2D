@@ -78,7 +78,7 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodexL.dll*" "$(TargetDir)"  /Y /I /
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>FT2_BUILD_LIBRARY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MinimalRebuild>true</MinimalRebuild>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
@@ -129,10 +129,10 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClInclude Include="Graphics\Window.h" />
     <ClInclude Include="Input\ContollerInput.h" />
     <ClInclude Include="Input\KeyboardInput.h" />
+    <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Math\MathTypes.h" />
-    <ClInclude Include="Math\Matrix4x4.h" />
-    <ClInclude Include="Math\Quaternion.h" />
+    <ClInclude Include="Math\Rectangle.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
@@ -168,11 +168,14 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClCompile Include="Input\KeyboardInput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
-    <ClCompile Include="Math\Quaternion.cpp" />
+    <ClCompile Include="Math\Rectangle.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Utilities\StringExtensions.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="fmod.log" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

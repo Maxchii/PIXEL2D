@@ -66,6 +66,8 @@ namespace PIXL{ namespace graphics {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_TEXTURE_2D);
+		/*glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);*/
 
 		return true;
 	}

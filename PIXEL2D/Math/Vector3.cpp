@@ -1,160 +1,184 @@
 #include "Vector3.h"
-#include "Vector4.h"
-#include "../Utilities/StringExtensions.h"
-
-#ifndef GLM_FORCE_RADIANS
-#define GLM_FORCE_RADIANS
-#endif
-#include <glm\gtx\vector_angle.hpp>
-#include <glm\geometric.hpp>
-#include <glm\gtx\compatibility.hpp>
 
 namespace PIXL { namespace math {
 
-	Vector3::Vector3(Float32 x, Float32 y, Float32 z) : glm::vec3()
+	Vector3::Vector3(const float& x, const float& y, const float& z)
 	{
 		this->x = x;
 		this->y = y;
 		this->z = z;
 	}
-	Vector3::Vector3(const Vector3& vec) : glm::vec3()
+
+	void Vector3::Set(const float& x, const float& y, const float& z)
 	{
-		x =vec.x;
-		y =vec.y;
-		z =vec.z;
-	}
-	Vector3::Vector3(const glm::vec3& vec) : glm::vec3()
-	{
-		x =vec.x;
-		y =vec.y;
-		z =vec.z;
-	}
-	Vector3::Vector3(const Vector4& vec) : glm::vec3()
-	{
-		x =vec.x;
-		y =vec.y;
-		z =vec.z;
-	}
-	float Vector3::Angle(const Vector3& from, const Vector3& to)
-	{
-		return glm::angle(from.Raw(), to.Raw());
-	}
-	PIXL::math::Vector3 Vector3::ClampMagnitude(const Vector3& vec, float maxLength)
-	{
-		float magnitude = glm::clamp(vec.GetMagnitude(), -maxLength, maxLength);
-		Vector3 normalizedVector =vec.Normalized();
-		return normalizedVector* magnitude;
-	}
-	float Vector3::Distance(const Vector3& from, const Vector3& to)
-	{
-		return glm::distance(from.Raw(), to.Raw());
-	}
-	float Vector3::Dot(const Vector3& from, const Vector3& to)
-	{
-		return glm::dot(from.Raw(), to.Raw());
+		this->x = x;
+		this->y = y;
+		this->z = z;
 	}
 
-	PIXL::math::Vector3 Vector3::Cross(const Vector3& x, const Vector3& y)
+	Vector3& Vector3::Add(const Vector3& other)
 	{
-		return Vector3(glm::cross(x.Raw(), y.Raw()));
-	}
-	PIXL::math::Vector3 Vector3::Lerp(const Vector3& from, const Vector3& to, float time)
-	{
-		return Vector3(glm::lerp(from.Raw(), to.Raw(), time));
+		x += other.x;
+		y += other.y;
+		z += other.z;
+
+		return *this;
 	}
 
-	PIXL::math::Vector3 Vector3::Reflect(const Vector3& incident, const Vector3& normal)
+	Vector3& Vector3::Subtract(const Vector3& other)
 	{
-		return Vector3(glm::reflect(incident.Raw(), normal.Raw()));
-	}
-	PIXL::math::Vector3 Vector3::Refract(const Vector3& incident, const Vector3& normal, const float& theta)
-	{
-		return Vector3(glm::refract(incident.Raw(), normal.Raw(), theta));
-	}
-	PIXL::math::Vector3 Vector3::FaceForward(const Vector3& normal, const Vector3& incident, const Vector3& normalRef)
-	{
-		return Vector3(glm::faceforward(normal.Raw(), incident.Raw(), normalRef.Raw()));
-	}
-	PIXL::math::Vector3 Vector3::RotateX(const Vector3& vec, float angle)
-	{
-		return Vector3(glm::rotateX(vec.Raw(), angle));
-	}
-	PIXL::math::Vector3 Vector3::RotateY(const Vector3& vec, float angle)
-	{
-		return Vector3(glm::rotateY(vec.Raw(), angle));
-	}
-	PIXL::math::Vector3 Vector3::RotateZ(const Vector3& vec, float angle)
-	{
-		return Vector3(glm::rotateZ(vec.Raw(), angle));
+		x -= other.x;
+		y -= other.y;
+		z -= other.z;
+
+		return *this;
 	}
 
-	void Vector3::Scale(const Vector3& scale)
+	Vector3& Vector3::Multiply(const Vector3& other)
 	{
-		x = scale.x* x;
-		y = scale.y* y;
-		z = scale.z* z;
+		x *= other.x;
+		y *= other.y;
+		z *= other.z;
+
+		return *this;
 	}
-	void Vector3::Scale(const float& x, const float& y, const float& z)
+
+	Vector3& Vector3::Divide(const Vector3& other)
 	{
-		this->x = x* x;
-		this->y = y* y;
-		this->z = z* z;
+		x /= other.x;
+		y /= other.y;
+		z /= other.z;
+
+		return *this;
 	}
-	float Vector3::GetMagnitude() const
+
+
+	float Vector3::Length()
 	{
-		return glm::sqrt(x*x + y*y + z*z);
+		return sqrt(x * x + y * y + z * z);
 	}
-	float Vector3::GetSqrMagnitude() const
+
+	PIXL::math::Vector3 Vector3::Normalized()
 	{
-		return x* x + y* y + z* z;
+		Vector3 vector;
+		float length = this->Length();
+
+		if (length != 0)
+		{
+			vector.x = x / length;
+			vector.y = y / length;
+			vector.z = z / length;
+		}
+
+		return vector;
 	}
-	Vector3 Vector3::Normalized() const
-	{
-		return Vector3(glm::normalize(Raw()));
-	}
+
 	void Vector3::Normalize()
 	{
-		glm::vec3 vec = glm::normalize(Raw());
-		x =vec.x;
-		y =vec.y;
-		z =vec.z;
+		float length = this->Length();
+
+		if (length != 0)
+		{
+			x = x / length;
+			y = y / length;
+			z = z / length;
+		}
 	}
 
-	void Vector3::Set(Float32 x, Float32 y, Float32 z)
+	void Vector3::Invert()
 	{
-		this->x = x;
-		this->y = y;
-		this->z = z;
+		x = -x;
+		y = -y;
+		z = -z;
 	}
 
-	void Vector3::Set(const Vector3& vec)
+	Vector3 Vector3::Inverted()
 	{
-		this->x =vec.x;
-		this->y =vec.y;
-		this->z =vec.z;
+		Vector3 temp;
+		temp.x = -x;
+		temp.y = -y;
+		temp.z = -z;
+		return temp;
 	}
 
-	//Converts the data into raw 8 bit format. (12 bytes)
-	glm::vec3 Vector3::Raw() const
+	float Vector3::Distance(const Vector3& other)
 	{
-		return glm::vec3(x, y, z);
+		return sqrt(pow((x - other.x), 2) + pow((y - other.y), 2) + pow((z - other.z), 2));
+	}
+
+	float Vector3::Magnitude()
+	{
+		return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+	}
+
+	float Vector3::Dot(const Vector3& a, const Vector3& b)
+	{
+		return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
+	}
+
+	PIXL::math::Vector3 Vector3::Lerp(const Vector3& from, const Vector3& to, float t)
+	{
+		Vector3 temp;
+		temp.x = from.x + (to.x - from.x) * t;
+		temp.y = from.y + (to.y - from.y) * t;
+		temp.z = from.z + (to.z - from.z) * t;
+		return temp;
+	}
+
+	Vector3 operator+(Vector3 left, const Vector3& right)
+	{
+		return left.Add(right);
+	}
+
+	Vector3 operator-(Vector3 left, const Vector3& right)
+	{
+		return left.Subtract(right);
+	}
+
+	Vector3 operator*(Vector3 left, const Vector3& right)
+	{
+		return left.Multiply(right);
+	}
+
+	Vector3 operator/(Vector3 left, const Vector3& right)
+	{
+		return left.Divide(right);
+	}
+
+	Vector3& Vector3::operator+=(const Vector3& other)
+	{
+		return Add(other);
+	}
+
+	Vector3& Vector3::operator-=(const Vector3& other)
+	{
+		return Subtract(other);
+	}
+
+	Vector3& Vector3::operator*=(const Vector3& other)
+	{
+		return Multiply(other);
+	}
+
+	Vector3& Vector3::operator/=(const Vector3& other)
+	{
+		return Divide(other);
+	}
+
+	bool Vector3::operator==(const Vector3& other)
+	{
+		return x == other.x && y == other.y && z == other.z;
+	}
+
+	bool Vector3::operator!=(const Vector3& other)
+	{
+		return !(*this == other);
 	}
 
 	std::ostream& operator<<(std::ostream& stream, const Vector3& vector)
 	{
-		return stream << "Vector3 [" << vector.x << ", " << vector.y << ", " << vector.z << "]";
+		return stream << "Vector3 [" << vector.x << "," << vector.y << "," << vector.z << "]";
 	}
 
-	std::string Vector3::ToString()
-	{
-		return std::string(
-			"Vector3 [").append(utilities::F2S(x)).append(", ")
-			.append(utilities::F2S(y).append(", ")
-			.append(utilities::F2S(z)).append("]"));
-	}
 
 } }
-
-#ifdef GLM_FORCE_RADIANS
-#undef GLM_FORCE_RADIANS
-#endif

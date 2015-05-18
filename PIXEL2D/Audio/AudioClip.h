@@ -1,12 +1,13 @@
 #pragma once
 #include "..//Core/ValueTypes.h"
+#include "..//Core/Component.h"
 #include <fmod.hpp>
 #include <fmod_errors.h>
 
 
 namespace PIXL { namespace audio{
 
-	class AudioClip final
+	struct AudioClip final : public Component
 	{
 	public:
 		AudioClip(const string& filename, bool streamed);

@@ -1,214 +1,377 @@
 #include "Matrix4x4.h"
-#include "Vector2.h"
-#include "Vector3.h"
-#include "Vector4.h"
-#include "Quaternion.h"
-
-#ifndef GLM_FORCE_RADIANS
-#define GLM_FORCE_RADIANS
-#endif
-#include <glm\gtc\matrix_transform.hpp>
-#include <glm\gtc\quaternion.hpp>
 
 namespace PIXL { namespace math {
 
-	Matrix4x4::Matrix4x4() : glm::mat4x4(){ }
-	Matrix4x4::Matrix4x4(const glm::mat4x4& matrix) : glm::mat4x4(matrix){ }
-	Matrix4x4::~Matrix4x4(){ }
-
-	Matrix4x4 Matrix4x4::Transpose(const Matrix4x4& matrix)
+	Matrix4x4::Matrix4x4()
 	{
-		return Matrix4x4(glm::transpose(matrix.Raw()));
-	}
-	Matrix4x4 Matrix4x4::Inverse(const Matrix4x4& matrix)
-	{
-		return Matrix4x4(glm::inverse(matrix.Raw()));
-	}
-	Matrix4x4 Matrix4x4::Scale(const Matrix4x4& matrix, const Vector3& scale)
-	{
-		return Matrix4x4(glm::scale(matrix.Raw(), scale.Raw()));
-	}
-	Matrix4x4 Matrix4x4::Translate(const Matrix4x4& matrix, const Vector3& translation)
-	{
-		Vector4 position = matrix[3];
-		position.x += translation.x;
-		position.y += translation.y;
-		position.z += translation.z;
-		Matrix4x4 mat = matrix;
-		mat[3] = position;
-		return mat;
-	}
-	Matrix4x4 Matrix4x4::Rotate(const Matrix4x4& matrix, const Float32& rotation, const Vector3& axis)
-	{
-		return Matrix4x4(glm::rotate(matrix.Raw(), rotation, axis.Raw()));
-	}
-	Matrix4x4 Matrix4x4::Rotate(const Matrix4x4& matrix, const Vector3& rotation)
-	{
-		//Rotate ZXY
-		glm::mat4x4 mat = matrix.Raw();
-		mat = glm::rotate(mat, rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-		mat = glm::rotate(mat, rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-		mat = glm::rotate(mat, rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-
-		return Matrix4x4(mat);
-	}
-	Matrix4x4 Matrix4x4::Ortho(const Float32& left, const Float32& right, const Float32& bottom, const Float32& top, const Float32& far, const Float32& near)
-	{
-		return Matrix4x4(glm::ortho(left, right, bottom, top, near, far));
-	}
-	Matrix4x4 Matrix4x4::Perspective(const Float32& fov, const Float32& aspectRatio, const Float32& near, const Float32& far)
-	{
-		return Matrix4x4(glm::perspective(fov, aspectRatio, near, far));
-	}
-	Matrix4x4 Matrix4x4::LookAt(const Vector3& cameraPosition, const Vector3& direction, const Vector3& upDirection)
-	{
-		Vector3 f = direction.Normalized();
-		Vector3 s = Vector3::Cross(f, upDirection).Normalized();
-		Vector3 u = Vector3::Cross(s, f);
-
-		Matrix4x4 result = Matrix4x4::Identity();
-		result[0][0] = s.x;
-		result[1][0] = s.y;
-		result[2][0] = s.z;
-		result[0][1] = u.x;
-		result[1][1] = u.y;
-		result[2][1] = u.z;
-		result[0][2] = -f.x;
-		result[1][2] = -f.y;
-		result[2][2] = -f.z;
-		result[3][0] = -Vector3::Dot(s, cameraPosition);
-		result[3][1] = -Vector3::Dot(u, cameraPosition);
-		result[3][2] =  Vector3::Dot(f, cameraPosition);
-		return result;
-
-		return result;
+		for (int i = 0; i < 16; i++)
+			elements[i] = 0.0f;
 	}
 
-	Matrix4x4 Matrix4x4::LookAt(const Vector3& cameraPosition, const Vector3& direction)
+	Matrix4x4::Matrix4x4(float diagonal)
 	{
-		Vector3 f = direction.Normalized();
-		Vector3 s = Vector3::Cross(f, Vector3::Up()).Normalized();
-		Vector3 u = Vector3::Cross(s, f);
+		for (int i = 0; i < 16; i++)
+			elements[i] = 0.0f;
 
-		Matrix4x4 result = Matrix4x4::Identity();
-		result[0][0] = s.x;
-		result[1][0] = s.y;
-		result[2][0] = s.z;
-		result[0][1] = u.x;
-		result[1][1] = u.y;
-		result[2][1] = u.z;
-		result[0][2] = -f.x;
-		result[1][2] = -f.y;
-		result[2][2] = -f.z;
-		result[3][0] = -Vector3::Dot(s, cameraPosition);
-		result[3][1] = -Vector3::Dot(u, cameraPosition);
-		result[3][2] = Vector3::Dot(f, cameraPosition);
-		return result;
+		elements[0] = diagonal;
+		elements[5] = diagonal;
+		elements[10] = diagonal;
+		elements[15] = diagonal;
 	}
-
 
 	Matrix4x4 Matrix4x4::Identity()
 	{
-		Matrix4x4 mat;
-		memset(&mat, 0, sizeof(Matrix4x4));
-		mat[0][0] = 1.0f;
-		mat[1][1] = 1.0f;
-		mat[2][2] = 1.0f;
-		mat[3][3] = 1.0f;
-		return mat;
+		return Matrix4x4(1.0f);
 	}
 
-	Matrix4x4 Matrix4x4::Translate(const Vector3& position, const Vector3& rotation, const Vector3& scale)
+	Matrix4x4& Matrix4x4::Multiply(const Matrix4x4& other)
 	{
-		Matrix4x4 mat = Matrix4x4::Identity();
-		mat.Scale(scale);
-		mat.Rotate(rotation);
-		mat.Translate(position);
-		return mat;
-	}
+		__declspec(align(16)) float data[16];
 
-	Matrix4x4 Matrix4x4::Translate(const Vector3& position, const Quaternion& rotation, const Vector3& scale)
-	{
-		Matrix4x4 mat = Matrix4x4::Identity();
-		mat.Scale(scale);
-		mat*= rotation.GetRotationMatrix();
-		mat.Translate(position);
-		return mat;
-	}
+		/*for (unsigned int i = 0; i < 16; i += 4)
+			for (unsigned int j = 0; j < 4; ++j)
+				data[i + j] = (other.elements[i + 0] * elements[j + 0])
+				+ (other.elements[i + 1] * elements[j + 4])
+				+ (other.elements[i + 2] * elements[j + 8])
+				+ (other.elements[i + 3] * elements[j + 12]);*/
 
-	void Matrix4x4::Transpose()
-	{
-		*this = Matrix4x4(glm::transpose(Raw()));
-	}
-	void Matrix4x4::Inverse()
-	{
-		*this = Matrix4x4(glm::inverse(Raw()));
-	}
-	void Matrix4x4::Scale(const Vector3& scale)
-	{
-		*this = Matrix4x4(glm::scale(Raw(), scale.Raw()));
-	}
-	void Matrix4x4::Translate(const Vector3& translation)
-	{
-		Vector4 position = (*this)[3];
-		position.x += translation.x;
-		position.y += translation.y;
-		position.z += translation.z;
-		(*this)[3] = position;
-	}
-	void Matrix4x4::Rotate(const Float32& rotation, const Float32& angle, const Vector3& axis)
-	{
-		*this = Matrix4x4(glm::rotate(Raw(), angle, axis));
-	}
-	void Matrix4x4::Rotate(const Vector3& rotation)
-	{
-		glm::mat4x4 mat = Raw();
-		mat = glm::rotate(mat, rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-		mat = glm::rotate(mat, rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-		mat = glm::rotate(mat, rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-		*this = mat;
-	}
-	void Matrix4x4::SetIdentity()
-	{
-		memset(this, 0, sizeof(Matrix4x4));
-		(*this)[0][0] = 1.0f;
-		(*this)[1][1] = 1.0f;
-		(*this)[2][2] = 1.0f;
-		(*this)[3][3] = 1.0f;
-	}
-	Quaternion Matrix4x4::GetRotation() const
-	{
-		return Quaternion(glm::quat_cast(Raw()));
-	}
+		__m128 a_line, b_line, r_line;
+		int i, j;
+		for (i = 0; i < 16; i += 4) {
+			// unroll the first step of the loop to avoid having to initialize r_line to zero
+			a_line = _mm_loadu_ps(elements);         // a_line = vec4(column(a, 0))
+			b_line = _mm_set1_ps(other.elements[i]);      // b_line = vec4(b[i][0])
+			r_line = _mm_mul_ps(a_line, b_line); // r_line = a_line * b_line
+			for (j = 1; j < 4; j++) {
+				a_line = _mm_loadu_ps(&elements[j * 4]); // a_line = vec4(column(a, j))
+				b_line = _mm_set1_ps(other.elements[i + j]);  // b_line = vec4(b[i][j])
+				r_line = _mm_add_ps(_mm_mul_ps(a_line, b_line), r_line);
+			}
+			_mm_store_ps(&data[i], r_line);     // r[i] = r_line
+		}
 
-	glm::mat4 Matrix4x4::Raw() const
-	{
-		return (glm::mat4)*this;
-	}
+		memcpy(elements, data, 16 * sizeof(float));
 
-	Matrix4x4 Matrix4x4::operator*(const Matrix4x4& matrix)
-	{
-		return  Raw() * matrix.Raw();
-	}
-
-	PIXL::math::Matrix4x4 Matrix4x4::operator*=(const Matrix4x4& matrix)
-	{ 
-		*this = Raw() * matrix.Raw();
 		return *this;
+	}
+
+	Vector3 Matrix4x4::Multiply(const Vector3& other) const
+	{
+		return Vector3(
+			columns[0].x * other.x + columns[1].x * other.y + columns[2].x * other.z + columns[3].x,
+			columns[0].y * other.x + columns[1].y * other.y + columns[2].y * other.z + columns[3].y,
+			columns[0].z * other.x + columns[1].z * other.y + columns[2].z * other.z + columns[3].z
+			);
+	}
+
+	Vector4 Matrix4x4::Multiply(const Vector4& other) const
+	{
+		return Vector4(
+			columns[0].x * other.x + columns[1].x * other.y + columns[2].x * other.z + columns[3].x * other.w,
+			columns[0].y * other.x + columns[1].y * other.y + columns[2].y * other.z + columns[3].y * other.w,
+			columns[0].z * other.x + columns[1].z * other.y + columns[2].z * other.z + columns[3].z * other.w,
+			columns[0].w * other.x + columns[1].w * other.y + columns[2].w * other.z + columns[3].w * other.w
+			);
+	}
+
+	Matrix4x4 operator*(Matrix4x4 left, const Matrix4x4& right)
+	{
+		return left.Multiply(right);
+	}
+
+	Matrix4x4& Matrix4x4::operator*=(const Matrix4x4& other)
+	{
+		return Multiply(other);
 	}
 
 	Vector3 operator*(const Matrix4x4& left, const Vector3& right)
 	{
-		Vector3 ret = Vector3(
-			left[0].x * right.x + left[1].x * right.y + left[2].x * right.z + left[3].x,
-			left[0].y * right.x + left[1].y * right.y + left[2].y * right.z + left[3].y,
-			left[0].z * right.x + left[1].z * right.y + left[2].z * right.z + left[3].z);
-
-		return ret;
+		return left.Multiply(right);
 	}
 
-} }
+	Vector4 operator*(const Matrix4x4& left, const Vector4& right)
+	{
+		return left.Multiply(right);
+	}
 
-#ifdef GLM_FORCE_RADIANS
-#undef GLM_FORCE_RADIANS
-#endif
+	Matrix4x4& Matrix4x4::Invert()
+	{
+		double temp[16];
+
+		temp[0] = elements[5] * elements[10] * elements[15] -
+			elements[5] * elements[11] * elements[14] -
+			elements[9] * elements[6] * elements[15] +
+			elements[9] * elements[7] * elements[14] +
+			elements[13] * elements[6] * elements[11] -
+			elements[13] * elements[7] * elements[10];
+
+		temp[4] = -elements[4] * elements[10] * elements[15] +
+			elements[4] * elements[11] * elements[14] +
+			elements[8] * elements[6] * elements[15] -
+			elements[8] * elements[7] * elements[14] -
+			elements[12] * elements[6] * elements[11] +
+			elements[12] * elements[7] * elements[10];
+
+		temp[8] = elements[4] * elements[9] * elements[15] -
+			elements[4] * elements[11] * elements[13] -
+			elements[8] * elements[5] * elements[15] +
+			elements[8] * elements[7] * elements[13] +
+			elements[12] * elements[5] * elements[11] -
+			elements[12] * elements[7] * elements[9];
+
+		temp[12] = -elements[4] * elements[9] * elements[14] +
+			elements[4] * elements[10] * elements[13] +
+			elements[8] * elements[5] * elements[14] -
+			elements[8] * elements[6] * elements[13] -
+			elements[12] * elements[5] * elements[10] +
+			elements[12] * elements[6] * elements[9];
+
+		temp[1] = -elements[1] * elements[10] * elements[15] +
+			elements[1] * elements[11] * elements[14] +
+			elements[9] * elements[2] * elements[15] -
+			elements[9] * elements[3] * elements[14] -
+			elements[13] * elements[2] * elements[11] +
+			elements[13] * elements[3] * elements[10];
+
+		temp[5] = elements[0] * elements[10] * elements[15] -
+			elements[0] * elements[11] * elements[14] -
+			elements[8] * elements[2] * elements[15] +
+			elements[8] * elements[3] * elements[14] +
+			elements[12] * elements[2] * elements[11] -
+			elements[12] * elements[3] * elements[10];
+
+		temp[9] = -elements[0] * elements[9] * elements[15] +
+			elements[0] * elements[11] * elements[13] +
+			elements[8] * elements[1] * elements[15] -
+			elements[8] * elements[3] * elements[13] -
+			elements[12] * elements[1] * elements[11] +
+			elements[12] * elements[3] * elements[9];
+
+		temp[13] = elements[0] * elements[9] * elements[14] -
+			elements[0] * elements[10] * elements[13] -
+			elements[8] * elements[1] * elements[14] +
+			elements[8] * elements[2] * elements[13] +
+			elements[12] * elements[1] * elements[10] -
+			elements[12] * elements[2] * elements[9];
+
+		temp[2] = elements[1] * elements[6] * elements[15] -
+			elements[1] * elements[7] * elements[14] -
+			elements[5] * elements[2] * elements[15] +
+			elements[5] * elements[3] * elements[14] +
+			elements[13] * elements[2] * elements[7] -
+			elements[13] * elements[3] * elements[6];
+
+		temp[6] = -elements[0] * elements[6] * elements[15] +
+			elements[0] * elements[7] * elements[14] +
+			elements[4] * elements[2] * elements[15] -
+			elements[4] * elements[3] * elements[14] -
+			elements[12] * elements[2] * elements[7] +
+			elements[12] * elements[3] * elements[6];
+
+		temp[10] = elements[0] * elements[5] * elements[15] -
+			elements[0] * elements[7] * elements[13] -
+			elements[4] * elements[1] * elements[15] +
+			elements[4] * elements[3] * elements[13] +
+			elements[12] * elements[1] * elements[7] -
+			elements[12] * elements[3] * elements[5];
+
+		temp[14] = -elements[0] * elements[5] * elements[14] +
+			elements[0] * elements[6] * elements[13] +
+			elements[4] * elements[1] * elements[14] -
+			elements[4] * elements[2] * elements[13] -
+			elements[12] * elements[1] * elements[6] +
+			elements[12] * elements[2] * elements[5];
+
+		temp[3] = -elements[1] * elements[6] * elements[11] +
+			elements[1] * elements[7] * elements[10] +
+			elements[5] * elements[2] * elements[11] -
+			elements[5] * elements[3] * elements[10] -
+			elements[9] * elements[2] * elements[7] +
+			elements[9] * elements[3] * elements[6];
+
+		temp[7] = elements[0] * elements[6] * elements[11] -
+			elements[0] * elements[7] * elements[10] -
+			elements[4] * elements[2] * elements[11] +
+			elements[4] * elements[3] * elements[10] +
+			elements[8] * elements[2] * elements[7] -
+			elements[8] * elements[3] * elements[6];
+
+		temp[11] = -elements[0] * elements[5] * elements[11] +
+			elements[0] * elements[7] * elements[9] +
+			elements[4] * elements[1] * elements[11] -
+			elements[4] * elements[3] * elements[9] -
+			elements[8] * elements[1] * elements[7] +
+			elements[8] * elements[3] * elements[5];
+
+		temp[15] = elements[0] * elements[5] * elements[10] -
+			elements[0] * elements[6] * elements[9] -
+			elements[4] * elements[1] * elements[10] +
+			elements[4] * elements[2] * elements[9] +
+			elements[8] * elements[1] * elements[6] -
+			elements[8] * elements[2] * elements[5];
+
+		double determinant = elements[0] * temp[0] + elements[1] * temp[4] + elements[2] * temp[8] + elements[3] * temp[12];
+		determinant = 1.0 / determinant;
+
+		for (int i = 0; i < 16; i++)
+			elements[i] = (float)(temp[i] * determinant);
+
+		return *this;
+	}
+
+	Matrix4x4 Matrix4x4::Orthographic(float left, float right, float bottom, float top, float near, float far)
+	{
+		Matrix4x4 result(1.0f);
+
+		result.elements[0] = 2.0f / (right - left);
+		result.elements[5] = 2.0f / (top - bottom);
+		result.elements[10] = 2.0f / (near - far);
+		result.elements[12] = (left + right) / (left - right);
+		result.elements[13] = (bottom + top) / (bottom - top);
+		result.elements[14] = (far + near) / (near - far);
+
+		return result;
+	}
+
+	Matrix4x4 Matrix4x4::Perspective(float fov, float aspectRatio, float near, float far)
+	{
+		Matrix4x4 result(1.0f);
+
+		float q = 1.0f / tan(ToRadians(0.5f * fov));
+		float a = q / aspectRatio;
+
+		float b = (near + far) / (near - far);
+		float c = (2.0f * near * far) / (near - far);
+
+		result.elements[0] = a;
+		result.elements[5] = q;
+		result.elements[10] = b;
+		result.elements[11] = -1.0f;
+		result.elements[14] = c;
+
+		return result;
+	}
+
+	Matrix4x4 Matrix4x4::Translation(const Vector3& translation)
+	{
+		Matrix4x4 result(1.0f);
+
+		result.elements[12] = translation.x;
+		result.elements[13] = translation.y;
+		result.elements[14] = translation.z;
+
+		return result;
+	}
+
+	void Matrix4x4::Translate(const Vector3& translation)
+	{
+		elements[12] = translation.x;
+		elements[13] = translation.y;
+		elements[14] = translation.z;
+	}
+
+	Matrix4x4 Matrix4x4::Rotation(float angle, const Vector3& axis)
+	{
+		Matrix4x4 result(1.0f);
+
+		float r = ToRadians(angle);
+		float c = cos(r);
+		float s = sin(r);
+		float omc = 1.0f - c;
+
+		float x = axis.x;
+		float y = axis.y;
+		float z = axis.z;
+
+		result.elements[0] = x * omc + c;
+		result.elements[1] = y * x * omc + z * s;
+		result.elements[24] = x * z * omc - y * s;
+
+		result.elements[4] = x * y * omc - z * s;
+		result.elements[5] = y * omc + c;
+		result.elements[6] = y * z * omc + x * s;
+
+		result.elements[8] = x * z * omc + y * s;
+		result.elements[9] = y * z * omc - x * s;
+		result.elements[10] = z * omc + c;
+
+		/*result.elements[0] = omc*x*x+c;
+		result.elements[1] = omc*y*x+s*z;
+		result.elements[2] = omc*z*x-s*y;
+
+		result.elements[4] = omc*x*y-s*z;
+		result.elements[5] = omc*y*y+c;
+		result.elements[6] = omc*z*y+s*x;
+
+		result.elements[8] = omc*x*z+s*y;
+		result.elements[9] = omc*y*z-s*x;
+		result.elements[10] = omc*z*z+c;*/
+
+		return result;
+	}
+
+	void Matrix4x4::Rotate(float angle, const Vector3& axis)
+	{
+		float r = ToRadians(angle);
+		float c = cos(r);
+		float s = sin(r);
+		float omc = 1.0f - c;
+
+		float x = axis.x;
+		float y = axis.y;
+		float z = axis.z;
+
+		elements[0] = x * omc + c;
+		elements[1] = y * x * omc + z * s;
+		elements[2] = x * z * omc - y * s;
+
+		elements[4] = x * y * omc - z * s;
+		elements[5] = y * omc + c;
+		elements[6] = y * z * omc + x * s;
+
+		elements[8] = x * z * omc + y * s;
+		elements[9] = y * z * omc - x * s;
+		elements[10] = z * omc + c;
+
+		/*elements[0] = omc*x*x+c;
+		elements[1] = omc*y*x+s*z;
+		elements[2] = omc*z*x-s*y;
+
+		elements[4] = omc*x*y-s*z;
+		elements[5] = omc*y*y+c;
+		elements[6] = omc*z*y+s*x;
+
+		elements[8] = omc *x*z+s*y;
+		elements[9] = omc*y*z-s*x;
+		elements[10] = omc*z*z+c;*/
+	}
+
+	Matrix4x4 Matrix4x4::Scaled(const Vector3& scale)
+	{
+		Matrix4x4 result(1.0f);
+
+		result.elements[0] = scale.x;
+		result.elements[5] = scale.y;
+		result.elements[10] = scale.z;
+
+		return result;
+	}
+
+	void Matrix4x4::Scale(const Vector3& scale)
+	{
+		elements[0] = scale.x;
+		elements[5] = scale.y;
+		elements[10] = scale.z;
+	}
+
+	Matrix4x4& Matrix4x4::Transpose()
+	{
+		for (int i = 0; i < 16; i++) {
+			for (int j = i + 1; j < 16; j++) {
+				std::swap(elements[i + j], elements[j + i]);
+			}
+		}
+
+		return *this;
+	}
+} }

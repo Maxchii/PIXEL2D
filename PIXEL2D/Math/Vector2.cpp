@@ -1,125 +1,171 @@
 #include "Vector2.h"
-#include "../Utilities/StringExtensions.h"
 
-#ifndef GLM_FORCE_RADIANS
-#define GLM_FORCE_RADIANS
-#endif
+namespace PIXL { namespace math {
 
-#include <glm\gtx\vector_angle.hpp>
-#include <glm\geometric.hpp>
-#include <glm\gtx\compatibility.hpp>
-
-namespace PIXL{ namespace math {
-
-	Vector2::Vector2() : glm::vec2(){ }
-	Vector2::Vector2(Float32 x, Float32 y) : glm::vec2(x, y){ }
-	Vector2::Vector2(const Vector2& vec) : glm::vec2(vec.x, vec.y){ }
-	Vector2::Vector2(const glm::vec2& vec) : glm::vec2(vec){ }
-
-	float Vector2::Angle(const Vector2& from, const Vector2& to)
-	{
-		glm::vec2 fromRaw = from.Raw();
-		glm::vec2 toRaw = to.Raw();
-		return glm::angle(fromRaw, toRaw);
-	}
-	PIXL::math::Vector2 Vector2::ClampMagnitude(const Vector2& vec, float maxLength)
-	{
-		float magnitude = glm::clamp(vec.GetMagnitude(), -maxLength, maxLength);
-		return vec.Normalized()* magnitude;
-	}
-	float Vector2::Distance(const Vector2& from, const Vector2& to)
-	{
-		return glm::distance(from.Raw(), to.Raw());
-	}
-	float Vector2::Dot(const Vector2& from, const Vector2& to)
-	{
-		return glm::dot(from.Raw(), to.Raw());
-	}
-	PIXL::math::Vector2 Vector2::Lerp(const Vector2& from, const Vector2& to, float time)
-	{
-		return Vector2(glm::lerp(from.Raw(), to.Raw(), time));
-	}
-
-	PIXL::math::Vector2 Vector2::Reflect(const Vector2& incident, const Vector2& normal)
-	{
-		return Vector2(glm::reflect(incident.Raw(), normal.Raw()));
-	}
-	PIXL::math::Vector2 Vector2::Refract(const Vector2& incident, const Vector2& normal, const float& theta)
-	{
-		return Vector2(glm::refract(incident.Raw(), normal.Raw(), theta));
-	}
-	PIXL::math::Vector2 Vector2::FaceForward(const Vector2& normal, const Vector2& incident, const Vector2& normalRef)
-	{
-		return Vector2(glm::faceforward(normal.Raw(), incident.Raw(), normalRef.Raw()));
-	}
-
-	PIXL::math::Vector2 Vector2::Rotate(const Vector2& vec, const float& angle)
-	{
-		return Vector2(glm::rotate(vec.Raw(), angle));
-	}
-
-	void Vector2::Scale(const Vector2& scale)
-	{
-		x = scale.x* x;
-		y = scale.y* y;
-	}
-	void Vector2::Scale(const float& aX, const float& aY)
-	{
-		x = aX* x;
-		y = aY* y;
-	}
-	float Vector2::GetMagnitude() const
-	{
-		return glm::sqrt(x* x + y* y);
-	}
-	float Vector2::GetSqrMagnitude() const
-	{
-		return x* x + y* y;
-	}
-	Vector2 Vector2::Normalized() const
-	{
-		glm::vec2 vec(x, y);
-		return Vector2(glm::normalize(vec));
-	}
-	void Vector2::Normalize()
-	{
-		glm::vec2 vec(x, y);
-		vec = glm::normalize(vec);
-		x =vec.x;
-		y =vec.y;
-	}
-
-	void Vector2::Set(Float32 x, Float32 y)
+	Vector2::Vector2(const float& x, const float& y)
 	{
 		this->x = x;
 		this->y = y;
 	}
 
-	void Vector2::Set(const Vector2& vec)
+	void Vector2::Set(const float& x, const float& y)
 	{
-		this->x =vec.x;
-		this->y =vec.y;
+		this->x = x;
+		this->y = y;
 	}
 
-	glm::vec2 Vector2::Raw() const
+	Vector2& Vector2::Add(const Vector2& other)
 	{
-		return glm::vec2(x, y);
+		x += other.x;
+		y += other.y;
+
+		return *this;
 	}
 
-	std::string Vector2::ToString()
+	Vector2& Vector2::Subtract(const Vector2& other)
 	{
-		return std::string(
-			"Vector2 [").append(utilities::F2S(x))
-			.append(", ").append(utilities::F2S(y).append("]"));
+		x -= other.x;
+		y -= other.y;
+
+		return *this;
+	}
+
+	Vector2& Vector2::Multiply(const Vector2& other)
+	{
+		x *= other.x;
+		y *= other.y;
+
+		return *this;
+	}
+
+	Vector2& Vector2::Divide(const Vector2& other)
+	{
+		x /= other.x;
+		y /= other.y;
+
+		return *this;
+	}
+
+	Vector2 operator+(Vector2 left, const Vector2& right)
+	{
+		return left.Add(right);
+	}
+
+	Vector2 operator-(Vector2 left, const Vector2& right)
+	{
+		return left.Subtract(right);
+	}
+
+	Vector2 operator*(Vector2 left, const Vector2& right)
+	{
+		return left.Multiply(right);
+	}
+
+	Vector2 operator/(Vector2 left, const Vector2& right)
+	{
+		return left.Divide(right);
+	}
+
+	Vector2& Vector2::operator+=(const Vector2& other)
+	{
+		return Add(other);
+	}
+
+	Vector2& Vector2::operator-=(const Vector2& other)
+	{
+		return Subtract(other);
+	}
+
+	Vector2& Vector2::operator*=(const Vector2& other)
+	{
+		return Multiply(other);
+	}
+
+	Vector2& Vector2::operator/=(const Vector2& other)
+	{
+		return Divide(other);
+	}
+
+	void Vector2::Normalize()
+	{
+		float length = this->Length();
+
+		if (length != 0)
+		{
+			x = x / length;
+			y = y / length;
+		}
+	}
+
+	Vector2 Vector2::Normalized()
+	{
+		Vector2 vector;
+		float length = this->Length();
+
+		if (length != 0){
+			vector.x = x / length;
+			vector.y = y / length;
+		}
+
+		return vector;
+	}
+
+	float Vector2::Length()
+	{
+		return sqrt(x * x + y * y);
+	}
+
+	void Vector2::Invert()
+	{
+		x = -x;
+		y = -y;
+	}
+
+	Vector2 Vector2::Inverted()
+	{
+		Vector2 temp;
+		temp.x = -x;
+		temp.y = -y;
+		return temp;
+	}
+
+	float Vector2::Distance(const Vector2& other)
+	{
+		return sqrt(pow((x - other.x), 2) + pow((y - other.y), 2));
+	}
+
+	float Vector2::Magnitude()
+	{
+		return sqrt(pow(x, 2) + pow(y, 2));
+	}
+
+	float Vector2::Dot(const Vector2& a, const Vector2& b)
+	{
+		return (a.x * b.x) + (a.y * b.y);
+	}
+
+	Vector2 Vector2::Lerp(const Vector2& from, const Vector2& to, float t)
+	{
+		Vector2 temp;
+		temp.x = from.x + (to.x - from.x) * t;
+		temp.y = from.y + (to.y - from.y) * t;
+		return temp;
+	}
+
+	bool Vector2::operator==(const Vector2& other)
+	{
+		return x == other.x && y == other.y;
+	}
+
+	bool Vector2::operator!=(const Vector2& other)
+	{
+		return !(*this == other);
 	}
 
 	std::ostream& operator<<(std::ostream& stream, const Vector2& vector)
 	{
-		return stream << "Vector2 [" << vector.x << ", " << vector.y << "]";
+		return stream << "Vector2 [" << vector.x << "," << vector.y << "]";
 	}
-}
-}
 
-#ifdef GLM_FORCE_RADIANS
-#undef GLM_FORCE_RADIANS
-#endif
+
+} }

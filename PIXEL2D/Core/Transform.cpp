@@ -43,7 +43,6 @@ namespace PIXL
 	void Transform::SetPosition(const math::Vector2& newPosition)
 	{
 		m_position.Set(newPosition.x, newPosition.y, 0.0f);
-		
 		m_needsUpdate = true;
 	}
 
@@ -55,7 +54,6 @@ namespace PIXL
 	void Transform::SetRotation(float newRotation)
 	{
 		m_rotation = newRotation;
-		
 		m_needsUpdate = true;
 	}
 
@@ -70,24 +68,24 @@ namespace PIXL
 	{
 		if (m_needsUpdate)
 		{
-			
-			m_localMatrix = math::Matrix4x4::Translate(math::Matrix4x4::Identity(), m_position);
-			m_localMatrix = math::Matrix4x4::Rotate(m_localMatrix, m_rotation, math::Vector3::Forward());
-			m_localMatrix = math::Matrix4x4::Scale(m_localMatrix, math::Vector3(m_scale.x, m_scale.y, 1.0f));
+			m_localMatrix =
+				math::Matrix4x4::Translation(m_position)
+				* math::Matrix4x4::Rotation(m_rotation, math::Vector3::Forward())
+				* math::Matrix4x4::Scaled({ m_scale.x, m_scale.y, 1.0f });
+
+			m_worldMatrix = m_localMatrix;
 
 			if (entity->GetParent() != nullptr)
 			{
-				m_worldMatrix = entity->GetParent()->GetTransform().GetWorldTransform() * m_localMatrix;
+				m_localMatrix = entity->GetParent()->GetTransform().GetLocalTransform() * m_localMatrix;
+				m_worldMatrix = entity->GetParent()->GetTransform().GetWorldTransform() * m_worldMatrix;
 			}
-			else
-			{
-				m_worldMatrix = m_localMatrix;
-			}
+			
 
 			std::vector<Entity*>& childs = entity->childs();
 			for (size_t i = 0; i < childs.size(); i++)
 			{
-				childs[i]->GetTransform().IsDirty();
+				childs[i]->GetTransform().SetDirty();
 			}
 
 			m_needsUpdate = false;
@@ -97,6 +95,11 @@ namespace PIXL
 	bool Transform::IsDirty()
 	{
 		return m_needsUpdate;
+	}
+
+	void Transform::SetDirty()
+	{
+		m_needsUpdate = true;
 	}
 
 	

@@ -24,6 +24,7 @@ namespace PIXL
 		void Init() override;
 		void Update(Float32 deltaTime) override;
 		bool IsDirty();
+		void SetDirty();
 
 	private:
 		bool m_needsUpdate;

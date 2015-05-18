@@ -3,7 +3,7 @@
 
 struct GLFWwindow;
 namespace PIXL{ class PIXL2D; }
-namespace PIXL{ namespace math{ class Vector2; } }
+namespace PIXL{ namespace math{ struct Vector2; } }
 namespace PIXL{ namespace graphics{ class Window; } }
 
 

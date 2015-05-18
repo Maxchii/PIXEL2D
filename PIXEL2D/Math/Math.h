@@ -1,10 +1,14 @@
 #pragma once
+#include "..//Core/ValueTypes.h"
 #include "MathTypes.h"
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"
 #include "Matrix4x4.h"
-#include "Quaternion.h"
+#include "Rectangle.h"
+#include <iostream>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 namespace PIXL { namespace math{
 
@@ -26,6 +30,11 @@ namespace PIXL { namespace math{
 	inline Vector2 Abs(Vector2 value)
 	{
 		return Vector2(Abs(value.x), Abs(value.y));
+	}
+
+	inline float ToRadians(float degrees)
+	{
+		return (float)(degrees * (M_PI / 180.0f));
 	}
 
 } }

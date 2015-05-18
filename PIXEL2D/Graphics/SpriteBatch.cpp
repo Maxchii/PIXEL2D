@@ -61,7 +61,7 @@ namespace PIXL { namespace graphics {
 		const std::array<math::Vector2, 4>& uvs = drawable->GetUvs();
 		const GLuint tid = drawable->GetTextureID();
 
-		*m_transformationBack = math::Matrix4x4::Translate(*m_transformationBack, math::Vector3(-(size.x * 0.5f), -(size.y * 0.5f), 1.0f));
+		*m_transformationBack *= math::Matrix4x4::Translation(math::Vector3(-(size.x * 0.5f), -(size.y * 0.5f), 1.0f));
 
 		float ts = 0.0f;
 		if (tid > 0)
@@ -161,7 +161,7 @@ namespace PIXL { namespace graphics {
 
 		texture_font_t* ftFont = font.FtFont();
 
-		math::Matrix4x4::Translate(*m_transformationBack, math::Vector3(-x, -y, 1));
+		*m_transformationBack *= math::Matrix4x4::Translation(math::Vector3(-x, -y, 0));
 
 		for (size_t i = 0; i < text.length(); i++)
 		{
@@ -211,6 +211,8 @@ namespace PIXL { namespace graphics {
 				m_buffer->tid = ts;
 				m_buffer->color = color;
 				m_buffer++;
+
+				m_indexCount += 6;
 
 				m_indexCount += 6;
 				x += glyph->advance_x;

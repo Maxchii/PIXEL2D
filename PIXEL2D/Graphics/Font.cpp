@@ -18,6 +18,8 @@ namespace PIXL{ namespace graphics{
 
 	}
 
+	
+
 	ftgl::texture_font_t* Font::FtFont() const
 	{
 		return m_ftFont;

@@ -1,79 +1,249 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Core\ValueTypes.h" />
-    <ClInclude Include="Graphics\Window.h" />
-    <ClInclude Include="Math\Vector2.h" />
-    <ClInclude Include="Math\Vector3.h" />
-    <ClInclude Include="Math\Vector4.h" />
-    <ClInclude Include="Math\MathTypes.h" />
-    <ClInclude Include="Math\Math.h" />
-    <ClInclude Include="Math\Matrix4x4.h" />
-    <ClInclude Include="Math\Quaternion.h" />
-    <ClInclude Include="Utilities\StringExtensions.h" />
-    <ClInclude Include="Utilities\Timer.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Core\PIXL2D.h" />
-    <ClInclude Include="Core\Time.h" />
-    <ClInclude Include="Debugging\Debug.h" />
-    <ClInclude Include="Input\KeyboardInput.h" />
-    <ClInclude Include="Input\ContollerInput.h" />
-    <ClInclude Include="Audio\AudioClip.h" />
-    <ClInclude Include="Audio\Audio.h" />
-    <ClInclude Include="Graphics\SpriteBatch.h" />
-    <ClInclude Include="Graphics\IndexBuffer.h" />
-    <ClInclude Include="Graphics\Drawable.h" />
-    <ClInclude Include="Graphics\Texture.h" />
-    <ClInclude Include="Graphics\Renderer.h" />
-    <ClInclude Include="Graphics\Shader.h" />
-    <ClInclude Include="Utilities\FileUtilities.h" />
-    <ClInclude Include="Graphics\Layer.h" />
-    <ClInclude Include="Ext\freetype-gl\freetype-gl.h" />
-    <ClInclude Include="Ext\freetype-gl\opengl.h" />
-    <ClInclude Include="Ext\freetype-gl\platform.h" />
-    <ClInclude Include="Ext\freetype-gl\texture-atlas.h" />
-    <ClInclude Include="Ext\freetype-gl\texture-font.h" />
-    <ClInclude Include="Ext\freetype-gl\vec234.h" />
-    <ClInclude Include="Ext\freetype-gl\vector.h" />
-    <ClInclude Include="Graphics\Font.h" />
-    <ClInclude Include="Graphics\Label.h" />
-    <ClInclude Include="Core\Component.h" />
-    <ClInclude Include="Core\Entity.h" />
-    <ClInclude Include="Core\EntityManager.h" />
-    <ClInclude Include="Core\Transform.h" />
+    <ClInclude Include="Audio\Audio.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\AudioClip.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Component.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\ContollerInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Debugging\Debug.h">
+      <Filter>Debugging</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Drawable.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Entity.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EntityManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\FileUtilities.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Font.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\IndexBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\KeyboardInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Label.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Layer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Window.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Texture.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\SpriteBatch.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Shader.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Renderer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Rectangle.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix4x4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathTypes.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Math.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Time.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Timer.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\StringExtensions.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ValueTypes.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Transform.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PIXL2D.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Ext\freetype-gl\vector.h">
+      <Filter>Ext</Filter>
+    </ClInclude>
+    <ClInclude Include="Ext\freetype-gl\freetype-gl.h">
+      <Filter>Ext\freetype-gl</Filter>
+    </ClInclude>
+    <ClInclude Include="Ext\freetype-gl\opengl.h">
+      <Filter>Ext\freetype-gl</Filter>
+    </ClInclude>
+    <ClInclude Include="Ext\freetype-gl\platform.h">
+      <Filter>Ext\freetype-gl</Filter>
+    </ClInclude>
+    <ClInclude Include="Ext\freetype-gl\texture-atlas.h">
+      <Filter>Ext\freetype-gl</Filter>
+    </ClInclude>
+    <ClInclude Include="Ext\freetype-gl\texture-font.h">
+      <Filter>Ext\freetype-gl</Filter>
+    </ClInclude>
+    <ClInclude Include="Ext\freetype-gl\vec234.h">
+      <Filter>Ext\freetype-gl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Math\Vector2.cpp" />
-    <ClCompile Include="Math\Vector3.cpp" />
-    <ClCompile Include="Math\Vector4.cpp" />
-    <ClCompile Include="Math\Matrix4x4.cpp" />
-    <ClCompile Include="Math\Quaternion.cpp" />
-    <ClCompile Include="Utilities\StringExtensions.cpp" />
-    <ClCompile Include="Graphics\Window.cpp" />
-    <ClCompile Include="Core\PIXL2D.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Core\Time.cpp" />
-    <ClCompile Include="Debugging\Debug.cpp" />
-    <ClCompile Include="Input\KeyboardInput.cpp" />
-    <ClCompile Include="Input\ControllerInput.cpp" />
-    <ClCompile Include="Audio\AudioClip.cpp" />
-    <ClCompile Include="Audio\Audio.cpp" />
-    <ClCompile Include="Graphics\SpriteBatch.cpp" />
-    <ClCompile Include="Graphics\IndexBuffer.cpp" />
-    <ClCompile Include="Graphics\Drawable.cpp" />
-    <ClCompile Include="Graphics\Texture.cpp" />
-    <ClCompile Include="Graphics\Renderer.cpp" />
-    <ClCompile Include="Graphics\Shader.cpp" />
-    <ClCompile Include="Graphics\Layer.cpp" />
-    <ClCompile Include="Ext\freetype-gl\platform.c" />
-    <ClCompile Include="Ext\freetype-gl\texture-atlas.c" />
-    <ClCompile Include="Ext\freetype-gl\texture-font.c" />
-    <ClCompile Include="Ext\freetype-gl\vector.c" />
-    <ClCompile Include="Graphics\Font.cpp" />
-    <ClCompile Include="Graphics\Label.cpp" />
-    <ClCompile Include="Core\Entity.cpp" />
-    <ClCompile Include="Core\EntityManager.cpp" />
-    <ClCompile Include="Core\Transform.cpp" />
+    <ClCompile Include="Audio\Audio.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\AudioClip.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\ControllerInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Debugging\Debug.cpp">
+      <Filter>Debugging</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Drawable.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Entity.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EntityManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Font.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\IndexBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\KeyboardInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Label.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Layer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Window.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Texture.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\SpriteBatch.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Shader.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Renderer.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector2.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Rectangle.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Matrix4x4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Time.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\StringExtensions.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Transform.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PIXL2D.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Ext\freetype-gl\platform.c">
+      <Filter>Ext\freetype-gl</Filter>
+    </ClCompile>
+    <ClCompile Include="Ext\freetype-gl\texture-atlas.c">
+      <Filter>Ext\freetype-gl</Filter>
+    </ClCompile>
+    <ClCompile Include="Ext\freetype-gl\texture-font.c">
+      <Filter>Ext\freetype-gl</Filter>
+    </ClCompile>
+    <ClCompile Include="Ext\freetype-gl\vector.c">
+      <Filter>Ext\freetype-gl</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="fmod.log" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{603f9483-7df5-49eb-9ab4-4eeabd79fd4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{66f98b94-99aa-4573-8006-c3149c5a3faf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debugging">
+      <UniqueIdentifier>{5601535d-c9f6-4340-9afd-a5782b9e59af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{7fae6ad9-c3a9-47af-b55b-8606a8f7fd6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{4e8f31bb-6953-4ea3-aed2-fc734c582008}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{ea515d55-5ac4-4274-9d26-21198eeca802}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{b5c4b37f-17c6-4b75-b383-1609caf018ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ext">
+      <UniqueIdentifier>{953ecfb8-749f-4a24-aa49-a633ba41f435}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ext\freetype-gl">
+      <UniqueIdentifier>{582d12bc-b897-47ca-b718-c7e974e6d4e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

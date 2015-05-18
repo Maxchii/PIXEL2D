@@ -1,48 +1,49 @@
 #pragma once
-#include "MathTypes.h"
+#include <iostream>
 
 namespace PIXL { namespace math {
 
-	class Vector4 final: public glm::vec4
+	struct Vector4
 	{
-	public:
-		Vector4(){}
-		Vector4(Float32 x, Float32 y, Float32 z, Float32 w);
-		Vector4(const Vector4& vec);
-		Vector4(const glm::vec4& vec);
-		~Vector4(){}
+		float x, y, z, w;
 
-		static Float32 Angle(const Vector4& from, const Vector4& to);
-		static Vector4 ClampMagnitude(const Vector4& vec, float maxLength);
-		static Float32 Distance(const Vector4& from, const Vector4& to);
-		static Float32 Dot(const Vector4& from, const Vector4& to);
-		static Vector4 Lerp(const Vector4& from, const Vector4& to, float time);
+		Vector4() = default;
+		Vector4(const float& x, const float& y, const float& z, const float& w);
 
-		static Vector4 Reflect(const Vector4& incident, const Vector4& normal);
-		static Vector4 Refract(const Vector4& incident, const Vector4& normal, const Float32& theta);
-		static Vector4 FaceForward(const Vector4& normal, const Vector4& incident, const Vector4& normalRef);
-		static Vector4 RotateX(const Vector4& vec, Float32 angle);
-		static Vector4 RotateY(const Vector4& vec, Float32 angle);
-		static Vector4 RotateZ(const Vector4& vec, Float32 angle);
+		void Set(const float& x, const float& y, const float& z, const float& w);
 
-		void Scale(const Vector4& scale);
-		void Scale(const Float32& x, const Float32& y, const Float32& z, const Float32& w);
-		Float32 GetMagnitude() const;
-		Float32 GetSqrMagnitude() const;
-		Vector4 Normalized() const;
+		Vector4& Add(const Vector4& other);
+		Vector4& Subtract(const Vector4& other);
+		Vector4& Multiply(const Vector4& other);
+		Vector4& Divide(const Vector4& other);
+
+		float Length();
 		void Normalize();
+		Vector4 Normalized();
+		void Invert();
+		Vector4 Inverted();
+		float Distance(const Vector4& other);
+		float Magnitude();
+		float Dot(const Vector4& a, const Vector4& b);
 
-		void Set(Float32 x, Float32 y, Float32 z, Float32 w);
-		void Set(const Vector4& vec);
+		friend Vector4 operator+(Vector4 left, const Vector4& right);
+		friend Vector4 operator-(Vector4 left, const Vector4& right);
+		friend Vector4 operator*(Vector4 left, const Vector4& right);
+		friend Vector4 operator/(Vector4 left, const Vector4& right);
 
-		//Converts the data into raw 8 bit format. (12 bytes)
-		glm::vec4 Raw() const;
+		bool operator==(const Vector4& other);
+		bool operator!=(const Vector4& other);
 
-		inline static Vector4 Zero()	{ return Vector4(0.0f, 0.0f, 0.0f, 0.0f); }
-		inline static Vector4 One()		{ return Vector4(1.0f, 1.0f, 1.0f, 1.0f); }
+		Vector4& operator+=(const Vector4& other);
+		Vector4& operator-=(const Vector4& other);
+		Vector4& operator*=(const Vector4& other);
+		Vector4& operator/=(const Vector4& other);
+
+		inline static const Vector4 Zero() { return Vector4(0, 0, 0, 0); }
+		inline static const Vector4 One()  { return Vector4(1, 1, 1, 1); }
+		static Vector4 Lerp(const Vector4& from, const Vector4& to, float t);
 
 		friend std::ostream& operator<<(std::ostream& stream, const Vector4& vector);
-		std::string ToString();
 	};
 
 } }

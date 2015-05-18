@@ -1,6 +1,7 @@
 #pragma once
 #include "..//Ext/freetype-gl/freetype-gl.h"
 #include "..//Core/ValueTypes.h"
+#include "..//Math/Math.h"
 
 namespace PIXL{ namespace graphics{
 
@@ -8,6 +9,7 @@ namespace PIXL{ namespace graphics{
 	{
 	public:
 		Font(const string& filename, unsigned int fontSize);
+	
 		~Font(){}
 
 		ftgl::texture_font_t* FtFont() const;

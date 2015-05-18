@@ -1,50 +1,53 @@
 #pragma once
-#include "MathTypes.h"
+#include <iostream>
 
 namespace PIXL { namespace math {
 
-	class Vector2 final: public glm::vec2
+	struct Vector2
 	{
-	public:
-		Vector2();
-		Vector2(Float32 x, Float32 y);
-		Vector2(const Vector2& vec);
-		Vector2(const glm::vec2& vec);
-		~Vector2(){}
+		float x, y;
 
-		static float Angle(const Vector2& from, const Vector2& to);
-		static Vector2 ClampMagnitude(const Vector2& vec, float maxLength);
-		static float Distance(const Vector2& from, const Vector2& to);
-		static float Dot(const Vector2& from, const Vector2& to);
-		static Vector2 Lerp(const Vector2& from, const Vector2& to, float time);
+		Vector2() = default;
+		Vector2(const float& x, const float& y);
 
-		static Vector2 Reflect(const Vector2& incident, const Vector2& normal);
-		static Vector2 Refract(const Vector2& incident, const Vector2& normal, const float& theta);
-		static Vector2 FaceForward(const Vector2& normal, const Vector2& incident, const Vector2& normalRef);
-		static Vector2 Rotate(const Vector2& vec, const float& angle);
+		void Set(const float& x, const float& y);
 
-		void Scale(const Vector2& vec);
-		void Scale(const float& x, const float& y);
-		float GetMagnitude() const;
-		float GetSqrMagnitude() const;
-		Vector2 Normalized() const;
+		Vector2& Add(const Vector2& other);
+		Vector2& Subtract(const Vector2& other);
+		Vector2& Multiply(const Vector2& other);
+		Vector2& Divide(const Vector2& other);
+
 		void Normalize();
+		Vector2 Normalized();
+		float Length();
+		void Invert();
+		Vector2 Inverted();
+		float Distance(const Vector2& other);
+		float Magnitude();
+		float Dot(const Vector2& a, const Vector2& b);
+		
 
-		void Set(Float32 x, Float32 y);
-		void Set(const Vector2& vec);
+		friend Vector2 operator+(Vector2 left, const Vector2& right);
+		friend Vector2 operator-(Vector2 left, const Vector2& right);
+		friend Vector2 operator*(Vector2 left, const Vector2& right);
+		friend Vector2 operator/(Vector2 left, const Vector2& right);
 
-		//Converts the data into raw 16 bit format. (8 bytes)
-		glm::vec2 Raw() const;
+		bool operator==(const Vector2& other);
+		bool operator!=(const Vector2& other);
 
-		inline static Vector2 Up()		{ return Vector2(0.0, 1.0f);  }
-		inline static Vector2 Down()	{ return Vector2(0.0, -1.0f); }
-		inline static Vector2 Left()	{ return Vector2(-1.0, 0.0f); }
-		inline static Vector2 Right()	{ return Vector2(1.0, 0.0f);  }
-		inline static Vector2 Zero()	{ return Vector2(0.0f, 0.0f); }
-		inline static Vector2 One()		{ return Vector2(1.0f, 1.0f); }
+		Vector2& operator+=(const Vector2& other);
+		Vector2& operator-=(const Vector2& other);
+		Vector2& operator*=(const Vector2& other);
+		Vector2& operator/=(const Vector2& other);
+
+		inline static const Vector2 Zero()		{ return Vector2(0, 0); }
+		inline static const Vector2 One()		{ return Vector2(1, 1); }
+		inline static const Vector2 Up()		{ return Vector2(0, 1); }
+		inline static const Vector2 Right()	{ return Vector2(1, 0); }
+		static Vector2 Lerp(const Vector2& from, const Vector2& to, float t);
+		
 
 		friend std::ostream& operator<<(std::ostream& stream, const Vector2& vector);
-		std::string ToString();
 	};
 
 } }

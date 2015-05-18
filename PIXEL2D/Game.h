@@ -36,4 +36,5 @@ private:
 	graphics::Label* label;
 	graphics::Font* font;
 	EntityManager* manager;
+	Entity* testEntity;
 };
