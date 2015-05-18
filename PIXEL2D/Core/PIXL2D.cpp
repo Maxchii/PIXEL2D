@@ -9,7 +9,8 @@ namespace PIXL
 		m_time->Init();
 		m_audio = new audio::Audio();
 		m_audio->Init();
-
+		m_physics = new physics::Physics();
+		m_physics->Init(math::Vector2(0, -7.5f));
 		Init();
 		m_input = new input::KeyboardInput();
 		m_input->Init(m_window->m_window);
@@ -31,13 +32,10 @@ namespace PIXL
 			m_window->Clear();
 			m_input->Update();
 			Update(m_time->m_deltaTime);
+			m_physics->Update(m_time->m_deltaTime); //TODO Run at 50 fps
 			Render();
 			m_audio->Update();
 			m_window->Update();
-
-			/*string fpsString = std::to_string(Time::Instance().GetFps());
-			fpsString.append(" FPS");
-			m_window->SetWindowName(fpsString);*/
 		}
 	}
 

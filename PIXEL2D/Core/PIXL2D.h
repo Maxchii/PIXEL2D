@@ -3,6 +3,7 @@
 #include "..//Graphics/Window.h"
 #include "..//Input/KeyboardInput.h"
 #include "..//Audio/Audio.h"
+#include "..//Physics/Physics.h"
 #include "Time.h"
 
 namespace PIXL
@@ -69,5 +70,6 @@ namespace PIXL
 		Time*					m_time;
 		input::KeyboardInput*   m_input;
 		audio::Audio*			m_audio;
+		physics::Physics*		m_physics;
 	};
 }

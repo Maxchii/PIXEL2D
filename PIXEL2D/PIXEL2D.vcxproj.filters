@@ -119,6 +119,7 @@
     <ClInclude Include="Ext\freetype-gl\vec234.h">
       <Filter>Ext\freetype-gl</Filter>
     </ClInclude>
+    <ClInclude Include="Physics\Physics.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -213,6 +214,7 @@
     <ClCompile Include="Ext\freetype-gl\vector.c">
       <Filter>Ext\freetype-gl</Filter>
     </ClCompile>
+    <ClCompile Include="Physics\Physics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="fmod.log" />

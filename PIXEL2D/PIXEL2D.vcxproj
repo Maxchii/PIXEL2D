@@ -136,6 +136,7 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="Physics\Physics.h" />
     <ClInclude Include="Utilities\FileUtilities.h" />
     <ClInclude Include="Utilities\StringExtensions.h" />
     <ClInclude Include="Utilities\Timer.h" />
@@ -172,6 +173,7 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
+    <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="Utilities\StringExtensions.cpp" />
   </ItemGroup>
   <ItemGroup>
