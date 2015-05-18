@@ -26,13 +26,20 @@ namespace PIXL
 
 	void PIXL2D::run()
 	{
+		
 		while (!m_window->Closed())
 		{
 			m_time->Step();
 			m_window->Clear();
 			m_input->Update();
 			Update(m_time->m_deltaTime);
-			m_physics->Update(m_time->m_deltaTime); //TODO Run at 50 fps
+
+			if (m_time->m_frames < 50)
+			{
+				m_physics->Update(m_time->m_deltaTime); //TODO Run at 50 fps
+			}
+
+			
 			Render();
 			m_audio->Update();
 			m_window->Update();
