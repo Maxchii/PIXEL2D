@@ -8,9 +8,12 @@ namespace PIXL { namespace math {
 	{
 		union
 		{
-			float elements[16];
+			Float32 elements[16];
 			Vector4 columns[4];
 		};
+
+		//float elements[16];
+		//Vector4 columns[4];
 
 		Matrix4x4();
 		Matrix4x4(float diagonal);

@@ -4,9 +4,15 @@
 
 namespace PIXL{ namespace graphics {
 
+	int Window::m_height;
+	int Window::m_width;
+
 	Window::Window(const std::string& windowHandle, int width, int height, UInt32 windowFlags /*= 0*/)
-		: m_windowHandle(windowHandle), m_width(width), m_height(height), m_windowFlags(windowFlags)
+		: m_windowHandle(windowHandle), m_windowFlags(windowFlags)
 	{
+		m_width = width;
+		m_height = height;
+
 		if (!Init()){
 			glfwTerminate();
 			debugging::Debug::LogError("Window.cpp", "Fatal Error! GLFW terminated!");

@@ -3,6 +3,7 @@
 #include "Core/Transform.h"
 #include "Graphics/Sprite.h"
 #include "Input/KeyboardInput.h"
+#include "Physics/Collider.h"
 
 void Game::Init()
 {
@@ -44,8 +45,12 @@ void Game::Init()
 	ent2.GetTransform().SetPosition(math::Vector2(-75, 12));
 	label =  &ent2.AddComponent<Label>("Assets/Nunito-Bold.ttf", "FPS", math::Vector4(1.0f, .62f, 0.0f, 1), 32);
 	ent2.SetParent(ent);
-	
 
+	/*auto& ent(manager->AddEntity());
+	ent.AddComponent<Drawable>(math::Vector2(150, 30), math::Vector4(1.0f, 1.0f, 1.0f, 0.85f));
+	ent.GetTransform().SetPosition(math::Vector2(100,100));
+	ent.AddComponent<physics::Collider>(physics::ColliderType::DYNAMIC);*/
+	//testEntity = &ent;
 }
 
 void Game::Update(float deltaTime)
@@ -65,7 +70,7 @@ void Game::Update(float deltaTime)
 		audioClip->Stop();
 	}
 
-	label->SetText(std::to_string(Time::GetFps()).append(" FPS"));
+	//label->SetText(std::to_string(Time::GetFps()).append(" FPS"));
 
 	manager->Refresh();
 	manager->Update(deltaTime);

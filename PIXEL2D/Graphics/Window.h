@@ -29,8 +29,8 @@ namespace PIXL{ namespace graphics {
 		~Window();
 
 		bool Closed() const;
-		inline int Width() const { return m_width; }
-		inline int Height() const { return m_height; }
+		inline static int Width() { return m_width; }
+		inline static int Height() { return m_height; }
 		void EnableVsync(bool state);
 		void SetWindowName(const std::string& newName);
 		void SetWindowFlags(unsigned int windowFlags);
@@ -45,8 +45,8 @@ namespace PIXL{ namespace graphics {
 
 	private:
 		static GLFWwindow* m_window;
-		int m_width;
-		int m_height;
+		static int m_width;
+		static int m_height;
 		std::string m_windowHandle;
 		UInt32 m_windowFlags;
 

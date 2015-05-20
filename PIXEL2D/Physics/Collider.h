@@ -1,5 +1,6 @@
 #pragma once
 #include "..//Core/Component.h"
+#include "..//Math/Math.h"
 #include "Physics.h"
 
 namespace PIXL{ namespace physics{
@@ -10,19 +11,28 @@ namespace PIXL{ namespace physics{
 		DYNAMIC = 0x2
 	};
 
+	namespace PIXL{ struct Transform; }
 	struct Collider : public Component
 	{
-	protected:
+	public:
 		Collider(const ColliderType& colliderType);
 		virtual ~Collider();
-
 		void Init() override;
 		void Update(float deltaTime) override;
 
+		void SetPositionToSimUnits(const math::Vector2 ps);
+		math::Vector2 GetPositionFromSimUnits();
 
+	protected:
 		ColliderType m_colliderType;
 		b2World& m_world;
 		b2Body* m_body;
+		Transform* m_transform;
+		math::Vector2 m_simPosition;
+
+
+		math::Vector2 ToSimValue(const math::Vector2 ps);
+
 	};
 
 } }

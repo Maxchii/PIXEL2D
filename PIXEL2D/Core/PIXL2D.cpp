@@ -10,7 +10,7 @@ namespace PIXL
 		m_audio = new audio::Audio();
 		m_audio->Init();
 		m_physics = new physics::Physics();
-		m_physics->Init(math::Vector2(0, -7.5f));
+		m_physics->Init(math::Vector2(0, -0.1f));
 		Init();
 		m_input = new input::KeyboardInput();
 		m_input->Init(m_window->m_window);

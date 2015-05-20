@@ -17,12 +17,12 @@ namespace PIXL { namespace math{
 		return value > max ? max : (value < min ? min : value);
 	}
 
-	inline float Clamp(float value, float min, float max)
+	inline Float32 Clamp(float value, float min, float max)
 	{
 		return value > max ? max : (value < min ? min : value);
 	}
 
-	inline float Abs(float value)
+	inline Float32 Abs(float value)
 	{
 		return value < 0.0f ? -value : value;
 	}
@@ -32,7 +32,7 @@ namespace PIXL { namespace math{
 		return Vector2(Abs(value.x), Abs(value.y));
 	}
 
-	inline float ToRadians(float degrees)
+	inline Float32 ToRadians(float degrees)
 	{
 		return (float)(degrees * (M_PI / 180.0f));
 	}

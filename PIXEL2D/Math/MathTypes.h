@@ -7,5 +7,4 @@ namespace PIXL { namespace math{
 	struct Vector4;
 	struct Matrix4x4;
 	struct Rectangle;
-
 } }

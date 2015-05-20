@@ -2,6 +2,7 @@
 #include "ValueTypes.h"
 #include "..//Math/Math.h"
 #include "Component.h"
+#include "..//Physics/Collider.h"
 
 namespace PIXL
 {
@@ -40,5 +41,7 @@ namespace PIXL
 
 		math::Vector3 m_up;
 		math::Vector3 m_right;
+
+		physics::Collider* m_collider;
 	};
 }

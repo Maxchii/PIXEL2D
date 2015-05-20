@@ -1,4 +1,6 @@
 #include "Transform.h"
+#include "..//Physics/Collider.h"
+#include <iostream>
 
 namespace PIXL
 {
@@ -13,6 +15,7 @@ namespace PIXL
 		m_position.Set(0, 0, 0);
 		m_scale.Set(1.0f, 1.0f);
 		m_localMatrix = math::Matrix4x4::Identity();
+		m_collider = nullptr;
 	}
 
 	const math::Vector3& Transform::GetPosition() const
@@ -43,6 +46,13 @@ namespace PIXL
 	void Transform::SetPosition(const math::Vector2& newPosition)
 	{
 		m_position.Set(newPosition.x, newPosition.y, 0.0f);
+		
+
+		if (m_collider)
+		{
+			entity->GetComponent<physics::Collider>().SetPositionToSimUnits(math::Vector2(newPosition.x, newPosition.y));
+		}
+			
 		m_needsUpdate = true;
 	}
 
@@ -77,6 +87,16 @@ namespace PIXL
 
 	void Transform::Update(Float32 deltaTime)
 	{
+		if (entity->HasComponent<physics::Collider>() && m_collider == nullptr)
+			m_collider = &entity->GetComponent<physics::Collider>();
+
+		if (m_collider != nullptr)
+		{
+			math::Vector2 simPos = m_collider->GetPositionFromSimUnits();
+			m_position.Set(simPos.x, simPos.y, m_position.z);
+			m_needsUpdate = true;
+		}
+
 		if (m_needsUpdate)
 		{
 			m_localMatrix =
