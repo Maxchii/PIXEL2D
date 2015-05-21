@@ -94,7 +94,7 @@ namespace PIXL { namespace math {
 		return left.Multiply(right);
 	}
 
-	Matrix4x4& Matrix4x4::Invert()
+	Matrix4x4& Matrix4x4::Inverse()
 	{
 		double temp[16];
 

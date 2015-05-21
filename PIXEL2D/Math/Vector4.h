@@ -1,9 +1,12 @@
 #pragma once
-#include <iostream>
 #include "..//Core/ValueTypes.h"
 #include "Math.h"
+#include <iostream>
 
 namespace PIXL { namespace math {
+
+	inline Float32 Clamp(float value, float min, float max);
+	inline Float32 ToRadians(float degrees);
 
 	struct Vector4
 	{
@@ -11,20 +14,6 @@ namespace PIXL { namespace math {
 
 		Vector4() = default;
 		Vector4(const Float32& x, const Float32& y, const Float32& z, const Float32& w) : x(x), y(y), z(z), w(w){ }
-		Vector4(const Vector3& vec3)
-		{
-			x = vec3.x;
-			y = vec3.y;
-			z = vec3.z;
-			w = 0.0f;
-		}
-		Vector4(const Vector2& vec2)
-		{
-			x = vec2.x;
-			y = vec2.y;
-			z = 0.0f;
-			w = 0.0f;
-		}
 		void Set(const Float32& x, const Float32& y, const Float32& z, const Float32& w)
 		{
 			this->x = x;
@@ -35,22 +24,20 @@ namespace PIXL { namespace math {
 
 		static Float32 Angle(const Vector4& from, const Vector4& to)
 		{
-			//Float32 const angle(acos( clamp(Dot(from, to), -1), 0.0f));
-			//return angle;
+			Float32 const angle(acos(Clamp(Dot(from, to), -1.0f, 0.0f)));
+			return angle;
 
 			return 0;
 		}
 		static Vector4 ClampMagnitude(const Vector4& vec, float maxLength)
 		{
-			//Float32 magnitude = Clamp(vec.GetMagnitude(), -maxLength, maxLength);
-			//return vec.Normalized() * magnitude;
-
-			return Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+			Float32 magnitude = Clamp(vec.GetMagnitude(), -maxLength, maxLength);
+			return vec.Normalized() * magnitude;
 		}
 		static Float32 Distance(const Vector4& a, const Vector4& b)
 		{
 			return sqrt(
-				  pow((a.x - b.x), 2) 
+				pow((a.x - b.x), 2)
 				+ pow((a.y - b.y), 2)
 				+ pow((a.z - b.z), 2)
 				+ pow((a.w - b.w), 2));
@@ -68,6 +55,10 @@ namespace PIXL { namespace math {
 			tmp.w = from.w + (to.w - from.w) * t;
 			return tmp;
 		}
+		void Invert()
+		{
+			*this * -1;
+		}
 
 		inline Vector4 Inverse()
 		{
@@ -78,7 +69,7 @@ namespace PIXL { namespace math {
 		}
 		static Vector4 Reflect(const Vector4& incident, const Vector4& normal)
 		{
-			return Vector4(0.0f, 0.0f, 0.0f, 0.0f); //incident - 2.f * Dot(incident, normal) * normal;
+			return incident - 2.f * Dot(incident, normal) * normal;
 		}
 		static Vector4 Refract(const Vector4& incident, const Vector4& normal, const Float32& theta)
 		{
@@ -89,7 +80,7 @@ namespace PIXL { namespace math {
 			if (k < 0.f)
 				return Vector4(0.0f, 0.0f, 0.0f, 0.0f);
 			else
-				return Vector4(0.0f, 0.0f, 0.0f, 0.0f); //theta * incident - (theta * N_dot_I + sqrtf(k)) * normal;
+				return theta * incident - (theta * N_dot_I + sqrtf(k)) * normal;
 		}
 		static Vector4 FaceForward(const Vector4& normal, const Vector4& incident, const Vector4& normalRef)
 		{
@@ -221,13 +212,21 @@ namespace PIXL { namespace math {
 		}
 		friend Vector4 operator*(Vector4 left, const Float32& right)
 		{
-			Vector4 tmp;
-			tmp.x = left.x * right;
-			tmp.y = left.y * right;
-			tmp.z = left.z * right;
-			tmp.w = left.w * right;
+			left.x *= right;
+			left.y *= right;
+			left.z *= right;
+			left.w *= right;
 
-			return tmp;
+			return left;
+		}
+		friend Vector4 operator*(const Float32& left, Vector4 right)
+		{
+			right.x *= left;
+			right.y *= left;
+			right.z *= left;
+			right.w *= left;
+
+			return right;
 		}
 		friend Vector4 operator/(Vector4 left, const Vector4& right)
 		{
@@ -248,6 +247,7 @@ namespace PIXL { namespace math {
 		{
 			return !(*this == other);
 		}
+
 
 		inline Vector4& operator+=(const Vector4& other)
 		{
@@ -273,6 +273,8 @@ namespace PIXL { namespace math {
 			y = y * other.y;
 			z = z * other.z;
 			w = w * other.w;
+
+			return *this;
 		}
 		inline Vector4& operator/=(const Vector4& other)
 		{

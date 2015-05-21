@@ -49,7 +49,7 @@
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\</IntDir>
     <IncludePath>$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\RapidJSON\Include;$(SolutionDir)Dependencies\Box2D\include;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\FMOD\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\FMOD\lib;$(SolutionDir)Dependencies\FreeType\lib;$(SolutionDir)Dependencies\FreeImage\lib;$(SolutionDir)Dependencies\GLFW\lib;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\Box2D\lib;$(LibraryPath)</LibraryPath>
-    <TargetName>$(ProjectName) Engine</TargetName>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -135,6 +135,7 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Math\MathTypes.h" />
+    <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="Math\Rectangle.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
@@ -175,8 +176,6 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
     <ClCompile Include="Math\Rectangle.cpp" />
-    <ClCompile Include="Math\Vector2.cpp" />
-    <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="Physics\Collider.cpp" />
     <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="Utilities\StringExtensions.cpp" />

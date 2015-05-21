@@ -12,25 +12,17 @@ namespace PIXL { namespace math {
 			Vector4 columns[4];
 		};
 
-		//float elements[16];
-		//Vector4 columns[4];
-
 		Matrix4x4();
 		Matrix4x4(float diagonal);
 
 		static Matrix4x4 Identity();
 
 		Matrix4x4& Multiply(const Matrix4x4& other);
-		friend Matrix4x4 operator*(Matrix4x4 left, const Matrix4x4& right);
-		Matrix4x4& operator*=(const Matrix4x4& other);
-
 		Vector3 Multiply(const Vector3& other) const;
-		friend Vector3 operator*(const Matrix4x4& left, const Vector3& right);
-
 		Vector4 Multiply(const Vector4& other) const;
-		friend Vector4 operator*(const Matrix4x4& left, const Vector4& right);
+		
 
-		Matrix4x4& Invert();
+		Matrix4x4& Inverse();
 		Matrix4x4& Transpose();
 
 		static Matrix4x4 Orthographic(float left, float right, float bottom, float top, float near, float far);
@@ -44,6 +36,11 @@ namespace PIXL { namespace math {
 
 		static Matrix4x4 Scaled(const Vector3& scale);
 		void Scale(const Vector3& scale);
+
+		friend Matrix4x4 operator*(Matrix4x4 left, const Matrix4x4& right);
+		Matrix4x4& operator*=(const Matrix4x4& other);
+		friend Vector3 operator*(const Matrix4x4& left, const Vector3& right);
+		friend Vector4 operator*(const Matrix4x4& left, const Vector4& right);
 	};
 
 } }

@@ -5,9 +5,12 @@
 #include "Input/KeyboardInput.h"
 #include "Physics/Collider.h"
 
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
+
 void Game::Init()
 {
-	window = CreateWindow("Game", 1280, 720, NULL);
+	window = CreateWindow("Game", WINDOW_WIDTH, WINDOW_HEIGHT, NULL);
 	window->EnableVsync(false);
 
 	texture = new graphics::Texture("Assets/sheet.png");
@@ -15,7 +18,7 @@ void Game::Init()
 
 	manager = new EntityManager(new graphics::SpriteBatch(), shader, math::Matrix4x4::Orthographic(0, window->Width(), window->Height(), 0, -1.0f, 1.0f));
 
-	float textureW = 32.0;
+	float textureW = 32.0f;
 	float textureH = 32.0f;
 
 	for (int y = 0; y < (window->Height() / textureH); y++)
@@ -45,12 +48,6 @@ void Game::Init()
 	ent2.GetTransform().SetPosition(math::Vector2(-75, 12));
 	label =  &ent2.AddComponent<Label>("Assets/Nunito-Bold.ttf", "FPS", math::Vector4(1.0f, .62f, 0.0f, 1), 32);
 	ent2.SetParent(ent);
-
-	/*auto& ent(manager->AddEntity());
-	ent.AddComponent<Drawable>(math::Vector2(150, 30), math::Vector4(1.0f, 1.0f, 1.0f, 0.85f));
-	ent.GetTransform().SetPosition(math::Vector2(100,100));
-	ent.AddComponent<physics::Collider>(physics::ColliderType::DYNAMIC);*/
-	//testEntity = &ent;
 }
 
 void Game::Update(float deltaTime)
@@ -70,7 +67,7 @@ void Game::Update(float deltaTime)
 		audioClip->Stop();
 	}
 
-	//label->SetText(std::to_string(Time::GetFps()).append(" FPS"));
+	label->SetText(std::to_string(Time::GetFps()).append(" FPS"));
 
 	manager->Refresh();
 	manager->Update(deltaTime);

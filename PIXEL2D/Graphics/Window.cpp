@@ -29,25 +29,27 @@ namespace PIXL{ namespace graphics {
 
 		const GLFWvidmode* monitor = glfwGetVideoMode(glfwGetPrimaryMonitor());
 		bool fullscreen = false;
-		bool borderless = false;
+		bool windowedFullscreen = false;
 
 		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-		if (m_windowFlags & RESIZABLE)
-		{
+		if (m_windowFlags & RESIZABLE){
 			glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 		}
 
-		if (m_windowFlags & BORDERLESS)
-		{
+		if (m_windowFlags & FULLSCREEN){
+			m_window = glfwCreateWindow(m_width, m_height, m_windowHandle.c_str(), glfwGetPrimaryMonitor(), NULL);
+			fullscreen = true;
+		}
+		if (m_windowFlags & BORDERLESS){
 			m_width = monitor->width;
 			m_height = monitor->height;
 			glfwWindowHint(GLFW_DECORATED, GL_FALSE);
 			m_window = glfwCreateWindow(m_width, m_height, m_windowHandle.c_str(), NULL, NULL);
 			glfwSetWindowPos(m_window, 0, 0);
-			borderless = true;
+			windowedFullscreen = true;
 		}
 
-		if (!fullscreen && !borderless)
+		if (!fullscreen && !windowedFullscreen)
 		{
 			m_window = glfwCreateWindow(m_width, m_height, m_windowHandle.c_str(), NULL, NULL);
 			glfwSetWindowPos(m_window, monitor->width / 2 - m_width / 2, monitor->height / 2 - m_height / 2);
