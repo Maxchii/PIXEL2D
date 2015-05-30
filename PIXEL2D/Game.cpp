@@ -26,7 +26,7 @@ void Game::Init()
 		for (int x = 0; x < (window->Width() / textureW); x++)
 		{
 			auto& ent(manager->AddEntity());
-			ent.AddComponent<Sprite>(*texture, math::Rectangle(0, 0, 32, 32), math::Vector2(32, 32), math::Vector4(1, 1, 1, 1));
+			ent.AddComponent<Sprite>(*texture, math::Rectangle(0, 0, 32, 32), math::Vector2(textureW, textureH), math::Vector4(1, 1, 1, 1));
 			
 			ent.GetTransform().SetPosition(math::Vector2(textureW / 2 + x * textureW, textureH / 2 + y * textureH));
 			ent.GetTransform().SetRotation(0);
@@ -38,7 +38,7 @@ void Game::Init()
 
 	auto& ent(manager->AddEntity());
 	ent.AddComponent<Drawable>(math::Vector2(150,30), math::Vector4(0, 0, 0, 0.85f));
-	ent.GetTransform().SetPosition(math::Vector2(window->Width()-75,window->Height()-15));
+	ent.GetTransform().SetPosition(math::Vector2(window->Width()/2-75,window->Height()/2-15));
 	ent.GetTransform().SetRotation(0);
 	ent.GetTransform().SetScale(math::Vector2(1, 1));
 	audioClip = &ent.AddComponent<AudioClip>("Assets/Witching Hour.mp3", true);
@@ -68,9 +68,14 @@ void Game::Update(float deltaTime)
 	}
 
 	label->SetText(std::to_string(Time::GetFps()).append(" FPS"));
+	float rot = testEntity->GetTransform().GetRotation();
+	testEntity->GetTransform().SetRotation(rot += 20 * deltaTime);
+
 
 	manager->Refresh();
 	manager->Update(deltaTime);
+
+
 }
 
 void Game::Render()

@@ -21,8 +21,6 @@ namespace PIXL
 
 	void EntityManager::Update(Float32 deltaTime)
 	{
-		//for (auto& e : entities) e->Update(deltaTime);
-
 		for (size_t i = 0; i < m_entities.size(); i++)
 		{
 			m_entities[i]->Update(deltaTime);
@@ -31,8 +29,6 @@ namespace PIXL
 
 	void EntityManager::Draw()
 	{
-		//for (auto& e : entities) e->Draw();
-
 		m_shader->Enable();
 		m_spriteBatch->Begin();
 		for (size_t i = 0; i < m_entities.size(); i++)

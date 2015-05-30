@@ -6,11 +6,7 @@ namespace PIXL { namespace math {
 
 	struct Matrix4x4
 	{
-		union
-		{
-			Float32 elements[16];
-			Vector4 columns[4];
-		};
+		Float32 elements[16];
 
 		Matrix4x4();
 		Matrix4x4(float diagonal);
