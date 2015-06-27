@@ -1,7 +1,7 @@
 #include "KeyboardInput.h"
 #include "..//Debugging/Debug.h"
 #include "..//Core/ValueTypes.h"
-#include "..//Math/Vector2.h"
+#include "..//Math/Math.h"
 #include "..//Graphics/Window.h"
 
 namespace PIXL { namespace input {
@@ -138,9 +138,9 @@ namespace PIXL { namespace input {
 
 		return m_mouseButtonsState[button] && !m_mouseButtons[button];
 	}
-	math::Vector2 KeyboardInput::getMousePosition()
+	math::Vector2f KeyboardInput::getMousePosition()
 	{
-		return math::Vector2((Float32)m_mouseX, (Float32)m_mouseY);
+		return math::Vector2f((Float32)m_mouseX, (Float32)m_mouseY);
 	}
 	PIXL::Float32 KeyboardInput::getMouseScroll()
 	{

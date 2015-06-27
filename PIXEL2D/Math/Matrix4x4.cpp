@@ -55,18 +55,18 @@ namespace PIXL { namespace math {
 		return *this;
 	}
 
-	Vector3 Matrix4x4::Multiply(const Vector3& other) const
+	Vector3f Matrix4x4::Multiply(const Vector3f& other) const
 	{
-		return Vector3(
+		return Vector3f(
 			elements[0] * other.x + elements[4] * other.y + elements[8] * other.z + elements[12],
 			elements[1] * other.x + elements[5] * other.y + elements[9] * other.z + elements[13],
 			elements[2] * other.x + elements[6] * other.y + elements[10] * other.z + elements[14]
 			);
 	}
 
-	Vector4 Matrix4x4::Multiply(const Vector4& other) const
+	Vector4f Matrix4x4::Multiply(const Vector4f& other) const
 	{
-		return Vector4(
+		return Vector4f(
 			elements[0] * other.x + elements[4] * other.y + elements[8] * other.z + elements[12] * other.w,
 			elements[1] * other.x + elements[5] * other.y + elements[9] * other.z + elements[13] * other.w,
 			elements[2] * other.x + elements[6] * other.y + elements[10] * other.z + elements[14] * other.w,
@@ -84,12 +84,12 @@ namespace PIXL { namespace math {
 		return Multiply(other);
 	}
 
-	Vector3 operator*(const Matrix4x4& left, const Vector3& right)
+	Vector3f operator*(const Matrix4x4& left, const Vector3f& right)
 	{
 		return left.Multiply(right);
 	}
 
-	Vector4 operator*(const Matrix4x4& left, const Vector4& right)
+	Vector4f operator*(const Matrix4x4& left, const Vector4f& right)
 	{
 		return left.Multiply(right);
 	}
@@ -252,7 +252,7 @@ namespace PIXL { namespace math {
 		return result;
 	}
 
-	Matrix4x4 Matrix4x4::Translation(const Vector3& translation)
+	Matrix4x4 Matrix4x4::Translation(const Vector3f& translation)
 	{
 		Matrix4x4 result(1.0f);
 
@@ -263,14 +263,14 @@ namespace PIXL { namespace math {
 		return result;
 	}
 
-	void Matrix4x4::Translate(const Vector3& translation)
+	void Matrix4x4::Translate(const Vector3f& translation)
 	{
 		elements[12] = translation.x;
 		elements[13] = translation.y;
 		elements[14] = translation.z;
 	}
 
-	Matrix4x4 Matrix4x4::Rotation(float angle, const Vector3& axis)
+	Matrix4x4 Matrix4x4::Rotation(float angle, const Vector3f& axis)
 	{
 		Matrix4x4 result(1.0f);
 
@@ -310,7 +310,7 @@ namespace PIXL { namespace math {
 		return result;
 	}
 
-	void Matrix4x4::Rotate(float angle, const Vector3& axis)
+	void Matrix4x4::Rotate(float angle, const Vector3f& axis)
 	{
 		float r = ToRadians(angle);
 		float c = cos(r);
@@ -346,7 +346,7 @@ namespace PIXL { namespace math {
 		elements[10] = omc*z*z+c;*/
 	}
 
-	Matrix4x4 Matrix4x4::Scaled(const Vector3& scale)
+	Matrix4x4 Matrix4x4::Scaled(const Vector3f& scale)
 	{
 		Matrix4x4 result(1.0f);
 
@@ -357,7 +357,7 @@ namespace PIXL { namespace math {
 		return result;
 	}
 
-	void Matrix4x4::Scale(const Vector3& scale)
+	void Matrix4x4::Scale(const Vector3f& scale)
 	{
 		elements[0] = scale.x;
 		elements[5] = scale.y;

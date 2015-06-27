@@ -12,7 +12,7 @@ namespace PIXL { namespace physics{
 		
 	}
 
-	void Physics::Init(const math::Vector2& gravity)
+	void Physics::Init(const math::Vector2f& gravity)
 	{
 		m_gravity.Set(gravity.x, gravity.y);
 		m_world = new b2World(m_gravity);
@@ -25,7 +25,7 @@ namespace PIXL { namespace physics{
 		m_world->Step(deltaTime, m_velocityIterations, m_positionIterations);
 	}
 
-	void Physics::SetGravity(const math::Vector2& gravity)
+	void Physics::SetGravity(const math::Vector2f& gravity)
 	{
 		m_world->SetGravity(b2Vec2(gravity.x, gravity.y));
 	}

@@ -56,12 +56,12 @@ namespace PIXL { namespace graphics {
 
 	void SpriteBatch::Submit(Drawable* const drawable)
 	{
-		const math::Vector2& size = drawable->GetSize();
+		const math::Vector2f& size = drawable->GetSize();
 		const unsigned int color = drawable->GetColor();
-		const std::array<math::Vector2, 4>& uvs = drawable->GetUvs();
+		const std::array<math::Vector2f, 4>& uvs = drawable->GetUvs();
 		const GLuint tid = drawable->GetTextureID();
 
-		*m_transformationBack *= math::Matrix4x4::Translation(math::Vector3(-(size.x * 0.5f), -(size.y * 0.5f), 1.0f));
+		*m_transformationBack *= math::Matrix4x4::Translation(math::Vector3f(-(size.x * 0.5f), -(size.y * 0.5f), 1.0f));
 
 		float ts = 0.0f;
 		if (tid > 0)
@@ -90,25 +90,25 @@ namespace PIXL { namespace graphics {
 			}
 		}
 
-		m_buffer->vertex = *m_transformationBack * math::Vector3(0, size.y, 0);
+		m_buffer->vertex = *m_transformationBack * math::Vector3f(0, size.y, 0);
 		m_buffer->uv = uvs[3];
 		m_buffer->tid = ts;
 		m_buffer->color = color;
 		m_buffer++;
 
-		m_buffer->vertex = *m_transformationBack * math::Vector3(size.x, size.y, 0);
+		m_buffer->vertex = *m_transformationBack * math::Vector3f(size.x, size.y, 0);
 		m_buffer->uv = uvs[2];
 		m_buffer->tid = ts;
 		m_buffer->color = color;
 		m_buffer++;
 
-		m_buffer->vertex = *m_transformationBack * math::Vector3(size.x, 0, 0);
+		m_buffer->vertex = *m_transformationBack * math::Vector3f(size.x, 0, 0);
 		m_buffer->uv = uvs[1];
 		m_buffer->tid = ts;
 		m_buffer->color = color;
 		m_buffer++;
 
-		m_buffer->vertex = *m_transformationBack * math::Vector3::Zero();
+		m_buffer->vertex = *m_transformationBack * math::Vector3f::Zero();
 		m_buffer->uv = uvs[0];
 		m_buffer->tid = ts;
 		m_buffer->color = color;
@@ -125,7 +125,7 @@ namespace PIXL { namespace graphics {
 		}
 	}
 
-	void SpriteBatch::SubmitLabel(const string& text, const math::Vector3& position, const Font& font, unsigned int color)
+	void SpriteBatch::SubmitLabel(const string& text, const math::Vector3f& position, const Font& font, unsigned int color)
 	{
 		using namespace ftgl;
 
@@ -161,7 +161,7 @@ namespace PIXL { namespace graphics {
 
 		texture_font_t* ftFont = font.FtFont();
 
-		*m_transformationBack *= math::Matrix4x4::Translation(math::Vector3(-x, -y, 0));
+		*m_transformationBack *= math::Matrix4x4::Translation(math::Vector3f(-x, -y, 0));
 
 		for (size_t i = 0; i < text.length(); i++)
 		{
@@ -188,25 +188,25 @@ namespace PIXL { namespace graphics {
 				float v0 = glyph->t0;
 				float v1 = glyph->t1;
 
-				m_buffer->vertex = *m_transformationBack * math::Vector3(x0, y1, 0);
+				m_buffer->vertex = *m_transformationBack * math::Vector3f(x0, y1, 0);
 				m_buffer->uv.Set(u0, v1);
 				m_buffer->tid = ts;
 				m_buffer->color = color;
 				m_buffer++;
 
-				m_buffer->vertex = *m_transformationBack * math::Vector3(x0, y0, 0);
+				m_buffer->vertex = *m_transformationBack * math::Vector3f(x0, y0, 0);
 				m_buffer->uv.Set(u0, v0);
 				m_buffer->tid = ts;
 				m_buffer->color = color;
 				m_buffer++;
 
-				m_buffer->vertex = *m_transformationBack * math::Vector3(x1, y0, 0);
+				m_buffer->vertex = *m_transformationBack * math::Vector3f(x1, y0, 0);
 				m_buffer->uv.Set(u1, v0);
 				m_buffer->tid = ts;
 				m_buffer->color = color;
 				m_buffer++;
 
-				m_buffer->vertex = *m_transformationBack * math::Vector3(x1, y1, 0);
+				m_buffer->vertex = *m_transformationBack * math::Vector3f(x1, y1, 0);
 				m_buffer->uv.Set(u1, v1);
 				m_buffer->tid = ts;
 				m_buffer->color = color;

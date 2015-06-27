@@ -138,6 +138,7 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="Math\Rectangle.h" />
     <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\Vector2f.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Physics\Collider.h" />

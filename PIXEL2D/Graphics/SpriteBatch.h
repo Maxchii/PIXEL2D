@@ -20,8 +20,8 @@ namespace PIXL { namespace graphics {
 
 	struct VertexData
 	{
-		math::Vector3 vertex;
-		math::Vector2 uv;
+		math::Vector3f vertex;
+		math::Vector2f uv;
 		float tid;
 		unsigned int color;
 	};
@@ -34,7 +34,7 @@ namespace PIXL { namespace graphics {
 
 		void Begin() override;
 		void Submit(Drawable*const  drawable);
-		void SubmitLabel(const string& text, const math::Vector3& position, const Font& font, unsigned int color) override;
+		void SubmitLabel(const string& text, const math::Vector3f& position, const Font& font, unsigned int color) override;
 		void End() override;
 		void Flush() override;
 

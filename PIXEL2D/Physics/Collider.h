@@ -20,18 +20,18 @@ namespace PIXL{ namespace physics{
 		void Init() override;
 		void Update(float deltaTime) override;
 
-		void SetPositionToSimUnits(const math::Vector2 ps);
-		math::Vector2 GetPositionFromSimUnits();
+		void SetPositionToSimUnits(const math::Vector2f ps);
+		math::Vector2f GetPositionFromSimUnits();
 
 	protected:
 		ColliderType m_colliderType;
 		b2World& m_world;
 		b2Body* m_body;
 		Transform* m_transform;
-		math::Vector2 m_simPosition;
+		math::Vector2f m_simPosition;
 
 
-		math::Vector2 ToSimValue(const math::Vector2 ps);
+		math::Vector2f ToSimValue(const math::Vector2f ps);
 
 	};
 

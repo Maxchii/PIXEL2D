@@ -3,16 +3,18 @@
 namespace PIXL { namespace graphics{
 
 	Drawable::Drawable()
-		: m_size(math::Vector2(1.0f, 1.0f)), m_color(0xffffff) {}
+		: m_size(math::Vector2f(1.0f, 1.0f)), m_color(0xffffff) {
+		SetDefaultUvs();
+	}
 
-	Drawable::Drawable(math::Vector2 size, const math::Vector4& color)
+	Drawable::Drawable(math::Vector2f size, const math::Vector4f& color)
 		: m_size(size), m_texture(nullptr)
 	{
 		SetDefaultUvs();
 		SetUintColor(color);
 	}
 
-	Drawable::Drawable(Texture& texture, const math::Vector4& color)
+	Drawable::Drawable(Texture& texture, const math::Vector4f& color)
 		: m_texture(&texture)
 	{
 		SetDefaultUvs();
@@ -25,7 +27,7 @@ namespace PIXL { namespace graphics{
 		renderer->Submit(this);
 	}
 
-	const math::Vector2& Drawable::GetSize() const
+	const math::Vector2f& Drawable::GetSize() const
 	{
 		return m_size;
 	}
@@ -40,22 +42,22 @@ namespace PIXL { namespace graphics{
 		return m_texture ? m_texture->ID() : 0;
 	}
 
-	const void Drawable::SetSize(const math::Vector2& newSize)
+	const void Drawable::SetSize(const math::Vector2f& newSize)
 	{
 		m_size = newSize;
 	}
 
-	const void Drawable::SetColor(const math::Vector4& newColor)
+	const void Drawable::SetColor(const math::Vector4f& newColor)
 	{
 		SetUintColor(newColor);
 	}
 
-	void Drawable::SetUvs(const std::array<math::Vector2, 4>& newUvs)
+	void Drawable::SetUvs(const std::array<math::Vector2f, 4>& newUvs)
 	{
 		m_uvs = newUvs;
 	}
 
-	const std::array<math::Vector2, 4>& Drawable::GetUvs()
+	const std::array<math::Vector2f, 4>& Drawable::GetUvs()
 	{
 		return m_uvs;
 	}
@@ -65,7 +67,7 @@ namespace PIXL { namespace graphics{
 		m_texture = &newTexture;
 	}
 
-	const void Drawable::SetUintColor(const math::Vector4& newColor)
+	const void Drawable::SetUintColor(const math::Vector4f& newColor)
 	{
 		unsigned int color = 0;
 		int r = (int)(newColor.x * 255.0f);
@@ -77,10 +79,10 @@ namespace PIXL { namespace graphics{
 
 	const void Drawable::SetDefaultUvs()
 	{
-		m_uvs[0] = math::Vector2(0, 1);
-		m_uvs[1] = math::Vector2(1, 1);
-		m_uvs[2] = math::Vector2(1, 0);
-		m_uvs[3] = math::Vector2(0, 0);
+		m_uvs[0] = math::Vector2f(0, 1);
+		m_uvs[1] = math::Vector2f(1, 1);
+		m_uvs[2] = math::Vector2f(1, 0);
+		m_uvs[3] = math::Vector2f(0, 0);
 	}
 
 }

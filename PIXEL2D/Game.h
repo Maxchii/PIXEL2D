@@ -28,7 +28,6 @@ public:
 
 private:
 	Window* window;
-	AudioClip* audioClip;
 	graphics::Texture* texture;
 	graphics::Shader* shader;
 	graphics::Drawable* drawable;

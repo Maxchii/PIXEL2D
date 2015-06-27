@@ -29,9 +29,9 @@ namespace PIXL { namespace math{
 		return value < 0.0f ? -value : value;
 	}
 
-	/*inline Vector2 Abs(Vector2 value)
+	/*inline Vector2f Abs(Vector2f value)
 	{
-		return Vector2(Abs(value.x), Abs(value.y));
+		return Vector2f(Abs(value.x), Abs(value.y));
 	}*/
 
 	inline Float32 ToRadians(float degrees)

@@ -9,12 +9,12 @@ namespace PIXL{ namespace math{
 		float x, y, width, height;
 
 		Rectangle(const float& x, const float& y, const float& width, const float& height);
-		Rectangle(const Vector2& position, const Vector2& size);
-		Rectangle(const Vector4& dimensions);
+		Rectangle(const Vector2f& position, const Vector2f& size);
+		Rectangle(const Vector4f& dimensions);
 
 		void Set(const float& x, const float& y, const float& width, const float& height);
-		void SetPosition(const Vector2& position);
-		void SetSize(const Vector2& size);
+		void SetPosition(const Vector2f& position);
+		void SetSize(const Vector2f& size);
 		float Area();
 		float Perimeter();
 		bool Intersects(const Rectangle& other);

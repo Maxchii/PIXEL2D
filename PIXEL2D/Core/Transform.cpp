@@ -18,7 +18,7 @@ namespace PIXL
 		m_collider = nullptr;
 	}
 
-	const math::Vector3& Transform::GetPosition() const
+	const math::Vector3f& Transform::GetPosition() const
 	{
 		return m_position;
 	}
@@ -28,7 +28,7 @@ namespace PIXL
 		return m_rotation;
 	}
 
-	const math::Vector2& Transform::GetScale() const
+	const math::Vector2f& Transform::GetScale() const
 	{
 		return m_scale;
 	}
@@ -43,20 +43,20 @@ namespace PIXL
 		return m_worldMatrix;
 	}
 
-	void Transform::SetPosition(const math::Vector2& newPosition)
+	void Transform::SetPosition(const math::Vector2f& newPosition)
 	{
 		m_position.Set(newPosition.x, newPosition.y, 0.0f);
 		
 
 		if (m_collider)
 		{
-			entity->GetComponent<physics::Collider>().SetPositionToSimUnits(math::Vector2(newPosition.x, newPosition.y));
+			entity->GetComponent<physics::Collider>().SetPositionToSimUnits(math::Vector2f(newPosition.x, newPosition.y));
 		}
 			
 		m_needsUpdate = true;
 	}
 
-	void Transform::AddForce(const math::Vector2& newPosition)
+	void Transform::AddForce(const math::Vector2f& newPosition)
 	{
 
 	}
@@ -67,7 +67,7 @@ namespace PIXL
 		m_needsUpdate = true;
 	}
 
-	void Transform::SetScale(const math::Vector2& newScale)
+	void Transform::SetScale(const math::Vector2f& newScale)
 	{
 		m_scale = newScale;
 		m_needsUpdate = true;
@@ -75,12 +75,12 @@ namespace PIXL
 	}
 
 
-	math::Vector3 Transform::GetUp()
+	math::Vector3f Transform::GetUp()
 	{
 		return m_up;
 	}
 
-	math::Vector3 Transform::GetRight()
+	math::Vector3f Transform::GetRight()
 	{
 		return m_right;
 	}
@@ -92,7 +92,7 @@ namespace PIXL
 
 		if (m_collider != nullptr)
 		{
-			math::Vector2 simPos = m_collider->GetPositionFromSimUnits();
+			math::Vector2f simPos = m_collider->GetPositionFromSimUnits();
 			m_position.Set(simPos.x, simPos.y, m_position.z);
 			m_needsUpdate = true;
 		}
@@ -101,7 +101,7 @@ namespace PIXL
 		{
 			m_localMatrix =
 				math::Matrix4x4::Translation(m_position)
-				* math::Matrix4x4::Rotation(m_rotation, math::Vector3::Forward())
+				* math::Matrix4x4::Rotation(m_rotation, math::Vector3f::Forward())
 				* math::Matrix4x4::Scaled({ m_scale.x, m_scale.y, 1.0f });
 
 			m_worldMatrix = m_localMatrix;

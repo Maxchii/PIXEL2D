@@ -1,9 +1,10 @@
 #pragma once
 #include "..//Core/ValueTypes.h"
+#include "..//Math/Math.h"
 
 struct GLFWwindow;
 namespace PIXL{ class PIXL2D; }
-namespace PIXL{ namespace math{ struct Vector2; } }
+//namespace PIXL{ namespace math{ class Vector2f; } }
 namespace PIXL{ namespace graphics{ class Window; } }
 
 
@@ -22,7 +23,7 @@ namespace PIXL { namespace input {
 		static bool GetMouseButton(UInt32 button);
 		static bool GetMouseButtonDown(UInt32 button);
 		static bool GetMouseButtonUp(UInt32 button);
-		static math::Vector2 getMousePosition();
+		static math::Vector2f getMousePosition();
 		static Float32 getMouseScroll();
 	private:
 		KeyboardInput(){}

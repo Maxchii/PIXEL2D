@@ -21,9 +21,9 @@ namespace PIXL{ namespace graphics{
 			void SetUniform1fv(const GLchar* name, Float32* value, int count);
 			void SetUniform1i(const GLchar* name, int value);
 			void SetUniform1iv(const GLchar* name, int* value, int count);
-			void SetUniform2f(const GLchar* name, const math::Vector2& vector);
-			void SetUniform3f(const GLchar* name, const math::Vector3& vector);
-			void SetUniform4f(const GLchar* name, const math::Vector4& vector);
+			void SetUniform2f(const GLchar* name, const math::Vector2f& vector);
+			void SetUniform3f(const GLchar* name, const math::Vector3f& vector);
+			void SetUniform4f(const GLchar* name, const math::Vector4f& vector);
 			void SetUniformMat4(const GLchar* name, const math::Matrix4x4& matrix);
 
 		private:

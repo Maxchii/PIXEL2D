@@ -11,7 +11,7 @@ namespace PIXL{ namespace physics{
 	{
 		friend class PIXL2D;
 	public:
-		static void SetGravity(const math::Vector2& gravity);
+		static void SetGravity(const math::Vector2f& gravity);
 		static void SetVelocityIterations(int32 amount);
 		static void SetPositionIterations(int32 amount);
 		static b2World& World();
@@ -19,7 +19,7 @@ namespace PIXL{ namespace physics{
 	private:
 		Physics();
 		~Physics();
-		void Init(const math::Vector2& gravity);
+		void Init(const math::Vector2f& gravity);
 		void Update(Float32 deltaTime);
 
 	private:

@@ -43,6 +43,7 @@ namespace PIXL{
 				string errorString = "Failed to compile vertex shader!\n--> ";
 				errorString.append(&error[0]);
 				debugging::Debug::LogError(nullptr, errorString.c_str());
+				glDetachShader(program, vertex);
 				glDeleteShader(vertex);
 				return 0;
 			}
@@ -60,6 +61,7 @@ namespace PIXL{
 				string errorString = "Failed to compile fragment shader!\n--> ";
 				errorString.append(&error[0]);
 				debugging::Debug::LogError(nullptr, errorString.c_str());
+				glDetachShader(program, fragment);
 				glDeleteShader(fragment);
 				return 0;
 			}
@@ -106,17 +108,17 @@ namespace PIXL{
 			glUniform1iv(GetUniformLocation(name), count, value);
 		}
 
-		void Shader::SetUniform2f(const GLchar* name, const math::Vector2& vector)
+		void Shader::SetUniform2f(const GLchar* name, const math::Vector2f& vector)
 		{
 			glUniform2f(GetUniformLocation(name), vector.x, vector.y);
 		}
 
-		void Shader::SetUniform3f(const GLchar* name, const math::Vector3& vector)
+		void Shader::SetUniform3f(const GLchar* name, const math::Vector3f& vector)
 		{
 			glUniform3f(GetUniformLocation(name), vector.x, vector.y, vector.z);
 		}
 
-		void Shader::SetUniform4f(const GLchar* name, const math::Vector4& vector)
+		void Shader::SetUniform4f(const GLchar* name, const math::Vector4f& vector)
 		{
 			glUniform4f(GetUniformLocation(name), vector.x, vector.y, vector.z, vector.w);
 		}

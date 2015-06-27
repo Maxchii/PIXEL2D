@@ -3,14 +3,14 @@
 
 namespace PIXL{ namespace graphics{
 
-	Label::Label(const string& fontPath, const string& text, const math::Vector4& color /*= math::Vector4::One()*/, unsigned int size)
-		: Drawable(math::Vector2::One(), color)
+	Label::Label(const string& fontPath, const string& text, const math::Vector4f& color /*= math::Vector4f::One()*/, unsigned int size)
+		: Drawable(math::Vector2f::One(), color)
 	{
 		m_font = new Font(fontPath, size);
 		m_text = text;
 	}
 
-	Label::Label(Font* font, const string& text, const math::Vector4& color /*= math::Vector4::One()*/)
+	Label::Label(Font* font, const string& text, const math::Vector4f& color /*= math::Vector4f::One()*/)
 	{
 		m_font = font;
 		m_text = text;

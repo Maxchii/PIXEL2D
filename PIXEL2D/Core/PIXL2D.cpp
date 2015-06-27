@@ -10,7 +10,7 @@ namespace PIXL
 		m_audio = new audio::Audio();
 		m_audio->Init();
 		m_physics = new physics::Physics();
-		m_physics->Init(math::Vector2(0, -9.81));
+		m_physics->Init(math::Vector2f(0, -9.81));
 		Init();
 		m_input = new input::KeyboardInput();
 		m_input->Init(m_window->m_window);
@@ -33,6 +33,7 @@ namespace PIXL
 			m_window->Clear();
 			
 			Update(m_time->m_deltaTime);
+
 			m_input->Update();
 			if (m_time->m_frames < 50)
 			{

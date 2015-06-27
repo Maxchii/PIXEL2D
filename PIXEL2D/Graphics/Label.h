@@ -8,8 +8,8 @@ namespace PIXL{	namespace graphics{
 	class Label final : public Drawable
 	{
 	public:
-		Label(const string& fontPath, const string& text, const math::Vector4& color = math::Vector4::One(), unsigned int size = 32);
-		Label(Font* font, const string& text, const math::Vector4& color = math::Vector4::One());
+		Label(const string& fontPath, const string& text, const math::Vector4f& color = math::Vector4f::One(), unsigned int size = 32);
+		Label(Font* font, const string& text, const math::Vector4f& color = math::Vector4f::One());
 
 		void Draw(Renderer* renderer) override;
 		void SetText(const string& text);

@@ -10,7 +10,7 @@ namespace PIXL{ namespace math{
 		this->height = height;
 	}
 
-	Rectangle::Rectangle(const Vector2& position, const Vector2& size)
+	Rectangle::Rectangle(const Vector2f& position, const Vector2f& size)
 	{
 		x = position.x;
 		y = position.y;
@@ -18,7 +18,7 @@ namespace PIXL{ namespace math{
 		height = size.y;
 	}
 
-	Rectangle::Rectangle(const Vector4& dimensions)
+	Rectangle::Rectangle(const Vector4f& dimensions)
 	{
 		x = dimensions.x;
 		y = dimensions.y;
@@ -34,13 +34,13 @@ namespace PIXL{ namespace math{
 		this->height = height;
 	}
 
-	void Rectangle::SetPosition(const Vector2& position)
+	void Rectangle::SetPosition(const Vector2f& position)
 	{
 		x = position.x;
 		y = position.y;
 	}
 
-	void Rectangle::SetSize(const Vector2& size)
+	void Rectangle::SetSize(const Vector2f& size)
 	{
 		width = size.x;
 		height = size.y;

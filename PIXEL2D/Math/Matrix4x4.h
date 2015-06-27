@@ -14,8 +14,8 @@ namespace PIXL { namespace math {
 		static Matrix4x4 Identity();
 
 		Matrix4x4& Multiply(const Matrix4x4& other);
-		Vector3 Multiply(const Vector3& other) const;
-		Vector4 Multiply(const Vector4& other) const;
+		Vector3f Multiply(const Vector3f& other) const;
+		Vector4f Multiply(const Vector4f& other) const;
 		
 
 		Matrix4x4& Inverse();
@@ -24,19 +24,19 @@ namespace PIXL { namespace math {
 		static Matrix4x4 Orthographic(float left, float right, float bottom, float top, float near, float far);
 		static Matrix4x4 Perspective(float fov, float aspectRatio, float near, float far);
 
-		static Matrix4x4 Translation(const Vector3& translation);
-		void Translate(const Vector3& translation);
+		static Matrix4x4 Translation(const Vector3f& translation);
+		void Translate(const Vector3f& translation);
 		
-		static Matrix4x4 Rotation(float angle, const Vector3& axis);
-		void Rotate(float angle, const Vector3& axis);
+		static Matrix4x4 Rotation(float angle, const Vector3f& axis);
+		void Rotate(float angle, const Vector3f& axis);
 
-		static Matrix4x4 Scaled(const Vector3& scale);
-		void Scale(const Vector3& scale);
+		static Matrix4x4 Scaled(const Vector3f& scale);
+		void Scale(const Vector3f& scale);
 
 		friend Matrix4x4 operator*(Matrix4x4 left, const Matrix4x4& right);
 		Matrix4x4& operator*=(const Matrix4x4& other);
-		friend Vector3 operator*(const Matrix4x4& left, const Vector3& right);
-		friend Vector4 operator*(const Matrix4x4& left, const Vector4& right);
+		friend Vector3f operator*(const Matrix4x4& left, const Vector3f& right);
+		friend Vector4f operator*(const Matrix4x4& left, const Vector4f& right);
 	};
 
 } }

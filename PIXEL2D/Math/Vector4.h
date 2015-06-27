@@ -8,13 +8,15 @@ namespace PIXL { namespace math {
 	inline Float32 Clamp(float value, float min, float max);
 	inline Float32 ToRadians(float degrees);
 
-	struct Vector4
+	template<class T> 
+	class Vector4
 	{
-		Float32 x, y, z, w;
+	public:
+		T x, y, z, w;
 
-		Vector4() = default;
-		Vector4(const Float32& x, const Float32& y, const Float32& z, const Float32& w) : x(x), y(y), z(z), w(w){ }
-		void Set(const Float32& x, const Float32& y, const Float32& z, const Float32& w)
+		Vector4<T>() = default;
+		Vector4<T>(const T& x, const T& y, const T& z, const T& w) : x(x), y(y), z(z), w(w){ }
+		void Set(const T& x, const T& y, const T& z, const T& w)
 		{
 			this->x = x;
 			this->y = y;
@@ -22,19 +24,19 @@ namespace PIXL { namespace math {
 			this->w = w;
 		}
 
-		static Float32 Angle(const Vector4& from, const Vector4& to)
+		static T Angle(const Vector4<T>& from, const Vector4<T>& to)
 		{
-			Float32 const angle(acos(Clamp(Dot(from, to), -1.0f, 0.0f)));
+			T const angle(acos(Clamp(Dot(from, to), -1.0f, 0.0f)));
 			return angle;
 
 			return 0;
 		}
-		static Vector4 ClampMagnitude(const Vector4& vec, float maxLength)
+		static Vector4<T> ClampMagnitude(const Vector4<T>& vec, float maxLength)
 		{
-			Float32 magnitude = Clamp(vec.GetMagnitude(), -maxLength, maxLength);
+			T magnitude = Clamp(vec.GetMagnitude(), -maxLength, maxLength);
 			return vec.Normalized() * magnitude;
 		}
-		static Float32 Distance(const Vector4& a, const Vector4& b)
+		static T Distance(const Vector4<T>& a, const Vector4<T>& b)
 		{
 			return sqrt(
 				pow((a.x - b.x), 2)
@@ -42,13 +44,13 @@ namespace PIXL { namespace math {
 				+ pow((a.z - b.z), 2)
 				+ pow((a.w - b.w), 2));
 		}
-		static Float32 Dot(const Vector4& a, const Vector4& b)
+		static T Dot(const Vector4<T>& a, const Vector4<T>& b)
 		{
 			return (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);
 		}
-		static Vector4 Lerp(const Vector4& from, const Vector4& to, float t)
+		static Vector4<T> Lerp(const Vector4<T>& from, const Vector4<T>& to, float t)
 		{
-			Vector4 tmp;
+			Vector4<T> tmp;
 			tmp.x = from.x + (to.x - from.x) * t;
 			tmp.y = from.y + (to.y - from.y) * t;
 			tmp.z = from.z + (to.z - from.z) * t;
@@ -60,88 +62,88 @@ namespace PIXL { namespace math {
 			*this * -1;
 		}
 
-		inline Vector4 Inverse()
+		inline Vector4<T> Inverse()
 		{
-			Vector4 tmp;
+			Vector4<T> tmp;
 			tmp = *this * -1;
 
 			return tmp;
 		}
-		static Vector4 Reflect(const Vector4& incident, const Vector4& normal)
+		static Vector4<T> Reflect(const Vector4<T>& incident, const Vector4<T>& normal)
 		{
 			return incident - 2.f * Dot(incident, normal) * normal;
 		}
-		static Vector4 Refract(const Vector4& incident, const Vector4& normal, const Float32& theta)
+		static Vector4<T> Refract(const Vector4<T>& incident, const Vector4<T>& normal, const T& theta)
 		{
-			//We use a Float32 because a Refract only works with float values
+			//We use a T because a Refract only works with float values
 
 			float N_dot_I = Dot(normal, incident);
 			float k = 1.f - theta * theta * (1.f - N_dot_I * N_dot_I);
 			if (k < 0.f)
-				return Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+				return Vector4<T>(0.0f, 0.0f, 0.0f, 0.0f);
 			else
 				return theta * incident - (theta * N_dot_I + sqrtf(k)) * normal;
 		}
-		static Vector4 FaceForward(const Vector4& normal, const Vector4& incident, const Vector4& normalRef)
+		static Vector4<T> FaceForward(const Vector4<T>& normal, const Vector4<T>& incident, const Vector4<T>& normalRef)
 		{
 			return Dot(normalRef, incident) < 0 ? normal : normal * -1;
 		}
-		static Vector4 RotateX(const Vector4& vec, Float32 angle)
+		static Vector4<T> RotateX(const Vector4<T>& vec, T angle)
 		{
 			//TODO add radians version
-			Vector4 tmp;
-			Float32 const c(cos(angle));
-			Float32 const s(sin(angle));
+			Vector4<T> tmp;
+			T const c(cos(angle));
+			T const s(sin(angle));
 
 			tmp.y = vec.y * c - vec.z * s;
 			tmp.z = vec.y * s + vec.z * c;
 			return tmp;
 		}
-		static Vector4 RotateY(const Vector4& vec, Float32 angle)
+		static Vector4<T> RotateY(const Vector4<T>& vec, T angle)
 		{
 			//TODO add radians version
-			Vector4 tmp;
-			Float32 const c(cos(angle));
-			Float32 const s(sin(angle));
+			Vector4<T> tmp;
+			T const c(cos(angle));
+			T const s(sin(angle));
 
 			tmp.x = vec.x * c + vec.z * s;
 			tmp.z = -vec.x * s + vec.z * c;
 			return tmp;
 		}
-		static Vector4 RotateZ(const Vector4& vec, Float32 angle)
+		static Vector4<T> RotateZ(const Vector4<T>& vec, T angle)
 		{
 			//TODO add radians version
-			Vector4 tmp;
-			Float32 const c(cos(angle));
-			Float32 const s(sin(angle));
+			Vector4<T> tmp;
+			T const c(cos(angle));
+			T const s(sin(angle));
 
 			tmp.x = vec.x * c - vec.y * s;
 			tmp.z = vec.x * s + vec.y * c;
 			return tmp;
 		}
 
-		inline void Scale(const Vector4& scale)
+		inline void Scale(const Vector4<T>& scale)
 		{
 			*this * scale;
 		}
-		inline void Scale(const Float32& x, const Float32& y, const Float32& z, const Float32& w)
+		inline void Scale(const T& x, const T& y, const T& z, const T& w)
 		{
 			this->x *= x;
 			this->y *= y;
 			this->z *= z;
 			this->w *= w;
 		}
-		inline Float32 GetMagnitude() const
+		inline T GetMagnitude() const
 		{
 			return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(w, 2));
 		}
-		inline Float32 GetSqrMagnitude() const
+		inline T GetSqrMagnitude() const
 		{
 			return (pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(w, 2));
 		}
-		inline Vector4 Normalized() const
+		inline Vector4<T> Normalized() const
 		{
-			Vector4 tmp;
+			Vector4<T> tmp;
 			float x2 = pow(x, 2);
 			float y2 = pow(y, 2);
 			float z2 = pow(z, 2);
@@ -167,12 +169,12 @@ namespace PIXL { namespace math {
 			w /= len;
 		}
 
-		static const Vector4 Zero() { return Vector4(0.0f, 0.0f, 0.0f, 0.0f); }
-		static const Vector4 One()  { return Vector4(1.0f, 1.0f, 1.0f, 1.0f); }
+		static const Vector4<T> Zero() { return Vector4<T>(0.0f, 0.0f, 0.0f, 0.0f); }
+		static const Vector4<T> One()  { return Vector4<T>(1.0f, 1.0f, 1.0f, 1.0f); }
 
-		friend Vector4 operator+(Vector4 left, const Vector4& right)
+		friend Vector4<T> operator+(Vector4<T> left, const Vector4<T>& right)
 		{
-			Vector4 tmp;
+			Vector4<T> tmp;
 			tmp.x = left.x + right.x;
 			tmp.y = left.y + right.y;
 			tmp.z = left.z + right.z;
@@ -180,9 +182,9 @@ namespace PIXL { namespace math {
 
 			return tmp;
 		}
-		friend Vector4 operator-(Vector4 left, const Vector4& right)
+		friend Vector4<T> operator-(Vector4<T> left, const Vector4<T>& right)
 		{
-			Vector4 tmp;
+			Vector4<T> tmp;
 			tmp.x = left.x - right.x;
 			tmp.y = left.y - right.y;
 			tmp.z = left.z - right.z;
@@ -190,9 +192,9 @@ namespace PIXL { namespace math {
 
 			return tmp;
 		}
-		friend Vector4 operator-(Vector4 left, const Float32& right)
+		friend Vector4<T> operator-(Vector4<T> left, const T& right)
 		{
-			Vector4 tmp;
+			Vector4<T> tmp;
 			tmp.x = left.x - right;
 			tmp.y = left.y - right;
 			tmp.z = left.z - right;
@@ -200,9 +202,9 @@ namespace PIXL { namespace math {
 
 			return tmp;
 		}
-		friend Vector4 operator*(Vector4 left, const Vector4& right)
+		friend Vector4<T> operator*(Vector4<T> left, const Vector4<T>& right)
 		{
-			Vector4 tmp;
+			Vector4<T> tmp;
 			tmp.x = left.x * right.x;
 			tmp.y = left.y * right.y;
 			tmp.z = left.z * right.z;
@@ -210,7 +212,7 @@ namespace PIXL { namespace math {
 
 			return tmp;
 		}
-		friend Vector4 operator*(Vector4 left, const Float32& right)
+		friend Vector4<T> operator*(Vector4<T> left, const T& right)
 		{
 			left.x *= right;
 			left.y *= right;
@@ -219,7 +221,7 @@ namespace PIXL { namespace math {
 
 			return left;
 		}
-		friend Vector4 operator*(const Float32& left, Vector4 right)
+		friend Vector4<T> operator*(const T& left, Vector4<T> right)
 		{
 			right.x *= left;
 			right.y *= left;
@@ -228,9 +230,9 @@ namespace PIXL { namespace math {
 
 			return right;
 		}
-		friend Vector4 operator/(Vector4 left, const Vector4& right)
+		friend Vector4<T> operator/(Vector4<T> left, const Vector4<T>& right)
 		{
-			Vector4 tmp;
+			Vector4<T> tmp;
 			tmp.x = left.x / right.x;
 			tmp.y = left.y / right.y;
 			tmp.z = left.z / right.z;
@@ -239,17 +241,17 @@ namespace PIXL { namespace math {
 			return tmp;
 		}
 
-		inline bool operator==(const Vector4& other)
+		inline bool operator==(const Vector4<T>& other)
 		{
 			return x == other.x&& y == other.y&& z == other.z&& w == other.w;
 		}
-		inline bool operator!=(const Vector4& other)
+		inline bool operator!=(const Vector4<T>& other)
 		{
 			return !(*this == other);
 		}
 
 
-		inline Vector4& operator+=(const Vector4& other)
+		inline Vector4<T>& operator+=(const Vector4<T>& other)
 		{
 			x = x + other.x;
 			y = y + other.y;
@@ -258,7 +260,7 @@ namespace PIXL { namespace math {
 
 			return *this;
 		}
-		inline Vector4& operator-=(const Vector4& other)
+		inline Vector4<T>& operator-=(const Vector4<T>& other)
 		{
 			x = x - other.x;
 			y = y - other.y;
@@ -267,7 +269,7 @@ namespace PIXL { namespace math {
 
 			return *this;
 		}
-		inline Vector4& operator*=(const Vector4& other)
+		inline Vector4<T>& operator*=(const Vector4<T>& other)
 		{
 			x = x * other.x;
 			y = y * other.y;
@@ -276,7 +278,7 @@ namespace PIXL { namespace math {
 
 			return *this;
 		}
-		inline Vector4& operator/=(const Vector4& other)
+		inline Vector4<T>& operator/=(const Vector4<T>& other)
 		{
 			x = x / other.x;
 			y = y / other.y;
@@ -286,9 +288,13 @@ namespace PIXL { namespace math {
 			return *this;
 		}
 
-		inline friend std::ostream& operator<<(std::ostream& stream, const Vector4& vector)
+		inline friend std::ostream& operator<<(std::ostream& stream, const Vector4<T>& vector)
 		{
-			return stream << "Vector4 [" << vector.x << "," << vector.y << "," << vector.z << "," << vector.w << "]";
+			return stream << "Vector4<T> [" << vector.x << "," << vector.y << "," << vector.z << "," << vector.w << "]";
 		}
 	};
+
+	using Vector4f = Vector4 < float > ;
+	using Vector4i = Vector4 < int > ;
+	using Vector4d = Vector4 < double >;
 } }
