@@ -28,13 +28,13 @@ namespace PIXL{
 		return typeID;
 	}
 
-	struct EntityManager;
+	struct Layer;
 	struct Component;
 	struct Transform;
 	class Entity
 	{
 	public:
-		Entity(EntityManager& entManager);
+		Entity(Layer& entManager);
 
 		void Init();
 		void Update(Float32 deltaTime);
@@ -79,7 +79,7 @@ namespace PIXL{
 		inline std::vector<Entity*>& childs() { return m_childs; }
 
 	private:
-		EntityManager& m_manager;
+		Layer& m_manager;
 		Transform* m_transform;
 		Entity* m_parent;
 		bool m_alive;

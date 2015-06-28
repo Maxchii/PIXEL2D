@@ -1,12 +1,12 @@
 #include "Entity.h"
-#include "EntityManager.h"
+#include "Layer.h"
 #include "Transform.h"
 #include "Component.h"
 #include "..\Debugging\Debug.h"
 
 namespace PIXL
 {
-	Entity::Entity(EntityManager& entManager)
+	Entity::Entity(Layer& entManager)
 		: m_alive(true), m_manager(entManager), m_parent(nullptr) {}
 
 	void Entity::Init()

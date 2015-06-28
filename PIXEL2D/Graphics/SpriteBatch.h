@@ -34,7 +34,7 @@ namespace PIXL { namespace graphics {
 
 		void Begin() override;
 		void Submit(Drawable*const  drawable);
-		void SubmitLabel(const string& text, const math::Vector3f& position, const Font& font, unsigned int color) override;
+		void SubmitLabel(const string& text, const math::Vector2f& position, const Font& font, unsigned int color) override;
 		void End() override;
 		void Flush() override;
 

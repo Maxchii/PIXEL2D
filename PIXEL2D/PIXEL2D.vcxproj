@@ -16,13 +16,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -39,22 +39,21 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\</IntDir>
-    <IncludePath>$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\RapidJSON\Include;$(SolutionDir)Dependencies\Box2D\include;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\FMOD\include;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)lib\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)lib\$(Configuration)\Intermediates\</IntDir>
+    <IncludePath>$(SolutionDir)Dependencies\RapidJSON\Include;$(SolutionDir)Dependencies\Box2D\include;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\FMOD\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\FMOD\lib;$(SolutionDir)Dependencies\FreeType\lib;$(SolutionDir)Dependencies\FreeImage\lib;$(SolutionDir)Dependencies\GLFW\lib;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\Box2D\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\</IntDir>
-    <IncludePath>$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\RapidJSON\Include;$(SolutionDir)Dependencies\Box2D\include;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\FMOD\include;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)lib\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)lib\$(Configuration)\Intermediates\</IntDir>
+    <IncludePath>$(SolutionDir)Dependencies\RapidJSON\Include;$(SolutionDir)Dependencies\Box2D\include;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\FMOD\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\FMOD\lib;$(SolutionDir)Dependencies\FreeType\lib;$(SolutionDir)Dependencies\FreeImage\lib;$(SolutionDir)Dependencies\GLFW\lib;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\Box2D\lib;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
       <PreprocessorDefinitions>FT2_BUILD_LIBRARY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -66,10 +65,8 @@
       <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;FreeImage.lib;freetype255MT.lib;fmodexL_vc.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)PIXEL2D\Assets\*.*" "$(TargetDir)Assets\"  /Y /I /E
-xcopy "$(SolutionDir)Dependencies\GLEW\bin\*.dll*" "$(TargetDir)"  /Y /I /E
-xcopy "$(SolutionDir)Dependencies\FreeImage\bin\*.dll*" "$(TargetDir)"  /Y /I /E
-xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodexL.dll*" "$(TargetDir)"  /Y /I /E</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -94,10 +91,8 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodexL.dll*" "$(TargetDir)"  /Y /I /
       <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;FreeImage.lib;freetype255MT.lib;fmodex_vc.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)PIXEL2D\Assets\*.*" "$(TargetDir)Assets\"  /Y /I /E
-xcopy "$(SolutionDir)Dependencies\GLEW\bin\*.dll*" "$(TargetDir)"  /Y /I /E
-xcopy "$(SolutionDir)Dependencies\FreeImage\bin\*.dll*" "$(TargetDir)"  /Y /I /E
-xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -105,7 +100,7 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClInclude Include="Audio\AudioClip.h" />
     <ClInclude Include="Core\Component.h" />
     <ClInclude Include="Core\Entity.h" />
-    <ClInclude Include="Core\EntityManager.h" />
+    <ClInclude Include="Core\Layer.h" />
     <ClInclude Include="Core\Transform.h" />
     <ClInclude Include="Debugging\Debug.h" />
     <ClInclude Include="Core\Time.h" />
@@ -116,14 +111,12 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClInclude Include="Ext\freetype-gl\texture-font.h" />
     <ClInclude Include="Ext\freetype-gl\vec234.h" />
     <ClInclude Include="Ext\freetype-gl\vector.h" />
-    <ClInclude Include="Game.h" />
     <ClInclude Include="Core\PIXL2D.h" />
     <ClInclude Include="Core\ValueTypes.h" />
     <ClInclude Include="Graphics\Drawable.h" />
     <ClInclude Include="Graphics\Font.h" />
     <ClInclude Include="Graphics\IndexBuffer.h" />
     <ClInclude Include="Graphics\Label.h" />
-    <ClInclude Include="Graphics\Layer.h" />
     <ClInclude Include="Graphics\Renderer.h" />
     <ClInclude Include="Graphics\Shader.h" />
     <ClInclude Include="Graphics\Sprite.h" />
@@ -138,7 +131,6 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="Math\Rectangle.h" />
     <ClInclude Include="Math\Vector2.h" />
-    <ClInclude Include="Math\Vector2f.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Physics\Collider.h" />
@@ -151,7 +143,7 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClCompile Include="Audio\Audio.cpp" />
     <ClCompile Include="Audio\AudioClip.cpp" />
     <ClCompile Include="Core\Entity.cpp" />
-    <ClCompile Include="Core\EntityManager.cpp" />
+    <ClCompile Include="Core\Layer.cpp" />
     <ClCompile Include="Core\Transform.cpp" />
     <ClCompile Include="Debugging\Debug.cpp" />
     <ClCompile Include="Core\Time.cpp" />
@@ -159,13 +151,11 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClCompile Include="Ext\freetype-gl\texture-atlas.c" />
     <ClCompile Include="Ext\freetype-gl\texture-font.c" />
     <ClCompile Include="Ext\freetype-gl\vector.c" />
-    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Core\PIXL2D.cpp" />
     <ClCompile Include="Graphics\Drawable.cpp" />
     <ClCompile Include="Graphics\Font.cpp" />
     <ClCompile Include="Graphics\IndexBuffer.cpp" />
     <ClCompile Include="Graphics\Label.cpp" />
-    <ClCompile Include="Graphics\Layer.cpp" />
     <ClCompile Include="Graphics\Renderer.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />
     <ClCompile Include="Graphics\Sprite.cpp" />
@@ -174,8 +164,8 @@ xcopy "$(SolutionDir)Dependencies\FMOD\bin\fmodex.dll*" "$(TargetDir)"  /Y /I /E
     <ClCompile Include="Graphics\Window.cpp" />
     <ClCompile Include="Input\ControllerInput.cpp" />
     <ClCompile Include="Input\KeyboardInput.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
+    <ClCompile Include="Math\Quaternion.cpp" />
     <ClCompile Include="Math\Rectangle.cpp" />
     <ClCompile Include="Physics\Collider.cpp" />
     <ClCompile Include="Physics\Physics.cpp" />

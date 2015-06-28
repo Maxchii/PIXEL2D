@@ -1,10 +1,11 @@
 #pragma once
-#define GLM_SWIZZLE 
+#include <vector>
 #include "..//Graphics/Window.h"
 #include "..//Input/KeyboardInput.h"
 #include "..//Audio/Audio.h"
 #include "..//Physics/Physics.h"
 #include "Time.h"
+#include "Layer.h"
 
 namespace PIXL
 {
@@ -19,7 +20,7 @@ namespace PIXL
 	{
 	public:
 		/*!
-		* \brief Starts running your game
+		* \brief Starts PIXL2D
 		*
 		* start calls \ref init and starts the main game loop.
 		*/
@@ -42,6 +43,15 @@ namespace PIXL
 		graphics::Window* CreateWindow(const char* windowHandle, int width, int height, unsigned int windowFlags);
 
 		/*!
+		* \brief Creates and returns a new Layer.
+		*
+		* <param name="depth">Specify the layer depth (Value is clamped between -1.0 - 1.0</param>
+		*
+		* \note memory allocation and deletion is managed by PXL2D, therefore there is no need to call delete on the layer.
+		*/
+		Layer* CreateLayer(const math::Matrix4x4& view, graphics::Shader* shader, float depth = 0.0f);
+
+		/*!
 		* \brief Runs once upon initialization
 		*
 		* Allows the game to perform any initialization it needs to before starting to run.
@@ -55,17 +65,12 @@ namespace PIXL
 		* <param name="deltaTime">The time in milliseconds it took to complete the last frame.</param>
 		*/
 		virtual void Update(float deltaTime) = 0;
-		/*!
-		* \brief Runs once every frame
-		*
-		* Allows the game to draw everything after all updates and collisions are updated.
-		*/
-		virtual void Render() = 0;
 
 	private:
 		void run();
 
 	private:
+		std::vector<std::pair<float,Layer*>> m_layers;
 		graphics::Window*		m_window;
 		Time*					m_time;
 		input::KeyboardInput*   m_input;

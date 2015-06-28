@@ -11,7 +11,7 @@ namespace PIXL
 	public:
 		Transform();
 
-		const math::Vector3f& GetPosition() const;
+		const math::Vector2f& GetPosition() const;
 		const float GetRotation() const;
 		const math::Vector2f& GetScale()	const;
 		const math::Matrix4x4& GetLocalTransform() const;
@@ -27,20 +27,20 @@ namespace PIXL
 		bool IsDirty();
 		void SetDirty();
 
-		math::Vector3f GetUp();
-		math::Vector3f GetRight();
+		math::Vector2f GetUp();
+		math::Vector2f GetRight();
 
 	private:
 		bool m_needsUpdate;
-		math::Vector3f m_position;
+		math::Vector2f m_position;
 		float m_rotation;
 		math::Vector2f m_scale;
 
 		math::Matrix4x4 m_localMatrix;
 		math::Matrix4x4 m_worldMatrix;
 
-		math::Vector3f m_up;
-		math::Vector3f m_right;
+		math::Vector2f m_up;
+		math::Vector2f m_right;
 
 		physics::Collider* m_collider;
 	};

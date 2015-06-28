@@ -12,7 +12,7 @@ namespace PIXL { namespace graphics{
 	public:
 		virtual void Begin(){};
 		virtual void Submit(graphics::Drawable*  const drawable) = 0;
-		virtual void SubmitLabel(const string& text, const math::Vector3f& position, const Font& font, unsigned int color){}
+		virtual void SubmitLabel(const string& text, const math::Vector2f& position, const Font& font, unsigned int color){}
 		virtual void End(){};
 		virtual void Flush() = 0;
 

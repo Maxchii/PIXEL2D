@@ -2,6 +2,7 @@
 #include "..//Core/ValueTypes.h"
 #include <string>
 #include <fstream>
+#include "..\Debugging\Debug.h"
 
 namespace PIXL { namespace utilities{
 
@@ -11,6 +12,11 @@ namespace PIXL { namespace utilities{
 
 		FILE* file;
 		fopen_s(&file, filepath, "rt");
+		if (file == nullptr)
+		{
+			debugging::Debug::LogError(nullptr,string("Failed to load ").append(filepath).c_str());
+			return "";
+		}
 		fseek(file, 0, SEEK_END);
 		unsigned long length = ftell(file);
 		char* data = new char[length + 1];

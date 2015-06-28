@@ -28,31 +28,31 @@ namespace PIXL { namespace math {
 	{
 		__declspec(align(16)) float data[16];
 
-		/*for (unsigned int i = 0; i < 16; i += 4)
-			for (unsigned int j = 0; j < 4; ++j)
-				data[i + j] = (other.elements[i + 0] * elements[j + 0])
-				+ (other.elements[i + 1] * elements[j + 4])
-				+ (other.elements[i + 2] * elements[j + 8])
-				+ (other.elements[i + 3] * elements[j + 12]);*/
-
 		__m128 a_line, b_line, r_line;
 		int i, j;
 		for (i = 0; i < 16; i += 4) {
 			// unroll the first step of the loop to avoid having to initialize r_line to zero
-			a_line = _mm_loadu_ps(elements);         // a_line = vec4(column(a, 0))
-			b_line = _mm_set1_ps(other.elements[i]);      // b_line = vec4(b[i][0])
-			r_line = _mm_mul_ps(a_line, b_line); // r_line = a_line * b_line
+			a_line = _mm_loadu_ps(elements);        
+			b_line = _mm_set1_ps(other.elements[i]);
+			r_line = _mm_mul_ps(a_line, b_line); 
 			for (j = 1; j < 4; j++) {
-				a_line = _mm_loadu_ps(&elements[j * 4]); // a_line = vec4(column(a, j))
-				b_line = _mm_set1_ps(other.elements[i + j]);  // b_line = vec4(b[i][j])
+				a_line = _mm_loadu_ps(&elements[j * 4]);
+				b_line = _mm_set1_ps(other.elements[i + j]);
 				r_line = _mm_add_ps(_mm_mul_ps(a_line, b_line), r_line);
 			}
-			_mm_store_ps(&data[i], r_line);     // r[i] = r_line
+			_mm_store_ps(&data[i], r_line);
 		}
 
 		memcpy(elements, data, 16 * sizeof(float));
 
 		return *this;
+	}
+
+	Vector2f Matrix4x4::Multiply(const Vector2f& other) const
+	{
+		return Vector2f(
+			elements[0] * other.x + elements[4] * other.y + elements[8],
+			elements[1] * other.x + elements[5] * other.y + elements[9]);
 	}
 
 	Vector3f Matrix4x4::Multiply(const Vector3f& other) const
@@ -82,6 +82,11 @@ namespace PIXL { namespace math {
 	Matrix4x4& Matrix4x4::operator*=(const Matrix4x4& other)
 	{
 		return Multiply(other);
+	}
+
+	Vector2f operator*(const Matrix4x4& left, const Vector2f& right)
+	{
+		return left.Multiply(right);
 	}
 
 	Vector3f operator*(const Matrix4x4& left, const Vector3f& right)
@@ -252,25 +257,23 @@ namespace PIXL { namespace math {
 		return result;
 	}
 
-	Matrix4x4 Matrix4x4::Translation(const Vector3f& translation)
+	Matrix4x4 Matrix4x4::Translation(const Vector2f& translation)
 	{
 		Matrix4x4 result(1.0f);
 
 		result.elements[12] = translation.x;
 		result.elements[13] = translation.y;
-		result.elements[14] = translation.z;
 
 		return result;
 	}
 
-	void Matrix4x4::Translate(const Vector3f& translation)
+	void Matrix4x4::Translate(const Vector2f& translation)
 	{
 		elements[12] = translation.x;
 		elements[13] = translation.y;
-		elements[14] = translation.z;
 	}
 
-	Matrix4x4 Matrix4x4::Rotation(float angle, const Vector3f& axis)
+	PIXL::math::Matrix4x4 Matrix4x4::Rotation(float angle)
 	{
 		Matrix4x4 result(1.0f);
 
@@ -279,9 +282,9 @@ namespace PIXL { namespace math {
 		float s = sin(r);
 		float omc = 1.0f - c;
 
-		float x = axis.x;
-		float y = axis.y;
-		float z = axis.z;
+		float x = 0;
+		float y = 0;
+		float z = 1.0f;
 
 		result.elements[0] = x * omc + c;
 		result.elements[1] = y * x * omc + z * s;
@@ -295,31 +298,19 @@ namespace PIXL { namespace math {
 		result.elements[9] = y * z * omc - x * s;
 		result.elements[10] = z * omc + c;
 
-		/*result.elements[0] = omc*x*x+c;
-		result.elements[1] = omc*y*x+s*z;
-		result.elements[2] = omc*z*x-s*y;
-
-		result.elements[4] = omc*x*y-s*z;
-		result.elements[5] = omc*y*y+c;
-		result.elements[6] = omc*z*y+s*x;
-
-		result.elements[8] = omc*x*z+s*y;
-		result.elements[9] = omc*y*z-s*x;
-		result.elements[10] = omc*z*z+c;*/
-
 		return result;
 	}
 
-	void Matrix4x4::Rotate(float angle, const Vector3f& axis)
+	void Matrix4x4::Rotate(float angle)
 	{
 		float r = ToRadians(angle);
 		float c = cos(r);
 		float s = sin(r);
 		float omc = 1.0f - c;
 
-		float x = axis.x;
-		float y = axis.y;
-		float z = axis.z;
+		float x = 0;
+		float y = 0;
+		float z = 1.0f;
 
 		elements[0] = x * omc + c;
 		elements[1] = y * x * omc + z * s;
@@ -332,36 +323,22 @@ namespace PIXL { namespace math {
 		elements[8] = x * z * omc + y * s;
 		elements[9] = y * z * omc - x * s;
 		elements[10] = z * omc + c;
-
-		/*elements[0] = omc*x*x+c;
-		elements[1] = omc*y*x+s*z;
-		elements[2] = omc*z*x-s*y;
-
-		elements[4] = omc*x*y-s*z;
-		elements[5] = omc*y*y+c;
-		elements[6] = omc*z*y+s*x;
-
-		elements[8] = omc *x*z+s*y;
-		elements[9] = omc*y*z-s*x;
-		elements[10] = omc*z*z+c;*/
 	}
 
-	Matrix4x4 Matrix4x4::Scaled(const Vector3f& scale)
+	Matrix4x4 Matrix4x4::Scaled(const Vector2f& scale)
 	{
 		Matrix4x4 result(1.0f);
 
 		result.elements[0] = scale.x;
 		result.elements[5] = scale.y;
-		result.elements[10] = scale.z;
 
 		return result;
 	}
 
-	void Matrix4x4::Scale(const Vector3f& scale)
+	void Matrix4x4::Scale(const Vector2f& scale)
 	{
 		elements[0] = scale.x;
 		elements[5] = scale.y;
-		elements[10] = scale.z;
 	}
 
 	Matrix4x4& Matrix4x4::Transpose()

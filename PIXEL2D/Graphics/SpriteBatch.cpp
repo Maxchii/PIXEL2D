@@ -61,7 +61,7 @@ namespace PIXL { namespace graphics {
 		const std::array<math::Vector2f, 4>& uvs = drawable->GetUvs();
 		const GLuint tid = drawable->GetTextureID();
 
-		*m_transformationBack *= math::Matrix4x4::Translation(math::Vector3f(-(size.x * 0.5f), -(size.y * 0.5f), 1.0f));
+		*m_transformationBack *= math::Matrix4x4::Translation(math::Vector2f(-(size.x * 0.5f), -(size.y * 0.5f)));
 
 		float ts = 0.0f;
 		if (tid > 0)
@@ -125,7 +125,7 @@ namespace PIXL { namespace graphics {
 		}
 	}
 
-	void SpriteBatch::SubmitLabel(const string& text, const math::Vector3f& position, const Font& font, unsigned int color)
+	void SpriteBatch::SubmitLabel(const string& text, const math::Vector2f& position, const Font& font, unsigned int color)
 	{
 		using namespace ftgl;
 
@@ -161,7 +161,7 @@ namespace PIXL { namespace graphics {
 
 		texture_font_t* ftFont = font.FtFont();
 
-		*m_transformationBack *= math::Matrix4x4::Translation(math::Vector3f(-x, -y, 0));
+		*m_transformationBack *= math::Matrix4x4::Translation(math::Vector2f(-x, -y));
 
 		for (size_t i = 0; i < text.length(); i++)
 		{

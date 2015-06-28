@@ -12,13 +12,13 @@ namespace PIXL
 	void Transform::Init()
 	{
 		m_rotation = 0;
-		m_position.Set(0, 0, 0);
+		m_position.Set(0, 0);
 		m_scale.Set(1.0f, 1.0f);
 		m_localMatrix = math::Matrix4x4::Identity();
 		m_collider = nullptr;
 	}
 
-	const math::Vector3f& Transform::GetPosition() const
+	const math::Vector2f& Transform::GetPosition() const
 	{
 		return m_position;
 	}
@@ -45,7 +45,7 @@ namespace PIXL
 
 	void Transform::SetPosition(const math::Vector2f& newPosition)
 	{
-		m_position.Set(newPosition.x, newPosition.y, 0.0f);
+		m_position.Set(newPosition.x, newPosition.y);
 		
 
 		if (m_collider)
@@ -75,12 +75,12 @@ namespace PIXL
 	}
 
 
-	math::Vector3f Transform::GetUp()
+	math::Vector2f Transform::GetUp()
 	{
 		return m_up;
 	}
 
-	math::Vector3f Transform::GetRight()
+	math::Vector2f Transform::GetRight()
 	{
 		return m_right;
 	}
@@ -93,7 +93,7 @@ namespace PIXL
 		if (m_collider != nullptr)
 		{
 			math::Vector2f simPos = m_collider->GetPositionFromSimUnits();
-			m_position.Set(simPos.x, simPos.y, m_position.z);
+			m_position.Set(simPos.x, simPos.y);
 			m_needsUpdate = true;
 		}
 
@@ -101,8 +101,8 @@ namespace PIXL
 		{
 			m_localMatrix =
 				math::Matrix4x4::Translation(m_position)
-				* math::Matrix4x4::Rotation(m_rotation, math::Vector3f::Forward())
-				* math::Matrix4x4::Scaled({ m_scale.x, m_scale.y, 1.0f });
+				* math::Matrix4x4::Rotation(m_rotation)
+				* math::Matrix4x4::Scaled({ m_scale.x, m_scale.y});
 
 			m_worldMatrix = m_localMatrix;
 
@@ -112,8 +112,10 @@ namespace PIXL
 				m_worldMatrix = entity->GetParent()->GetTransform().GetWorldTransform() * m_worldMatrix;
 			}
 			
-			m_right.Set(m_worldMatrix.elements[0], m_worldMatrix.elements[4], m_worldMatrix.elements[8]);
-			m_up.Set(m_worldMatrix.elements[1], m_worldMatrix.elements[5], m_worldMatrix.elements[9]);
+		//	m_right.Set(m_worldMatrix.elements[0], m_worldMatrix.elements[4], m_worldMatrix.elements[8]);
+			m_right.Set(m_worldMatrix.elements[0], m_worldMatrix.elements[4]);
+			//m_up.Set(m_worldMatrix.elements[1], m_worldMatrix.elements[5], m_worldMatrix.elements[9]);
+			m_up.Set(m_worldMatrix.elements[1], m_worldMatrix.elements[5]);
 
 			std::vector<Entity*>& childs = entity->childs();
 			for (size_t i = 0; i < childs.size(); i++)

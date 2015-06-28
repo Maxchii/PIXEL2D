@@ -2,6 +2,6 @@
 
 namespace PIXL { namespace math{
 		
-	struct Matrix4x4;
+	class Matrix4x4;
 	struct Rectangle;
 } }

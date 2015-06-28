@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Game.h" />
     <ClInclude Include="Audio\Audio.h">
       <Filter>Audio</Filter>
     </ClInclude>
@@ -23,9 +22,6 @@
     <ClInclude Include="Core\Entity.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Core\EntityManager.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="Utilities\FileUtilities.h">
       <Filter>Utilities</Filter>
     </ClInclude>
@@ -39,9 +35,6 @@
       <Filter>Input</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Label.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Layer.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Window.h">
@@ -128,12 +121,14 @@
     <ClInclude Include="Math\Quaternion.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="Math\Vector2f.h" />
-    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Core\Layer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Audio\Audio.cpp">
       <Filter>Audio</Filter>
     </ClCompile>
@@ -152,9 +147,6 @@
     <ClCompile Include="Core\Entity.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Core\EntityManager.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Font.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
@@ -165,9 +157,6 @@
       <Filter>Input</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Label.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Layer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Window.cpp">
@@ -223,6 +212,12 @@
     </ClCompile>
     <ClCompile Include="Graphics\Sprite.cpp">
       <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Layer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Quaternion.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
